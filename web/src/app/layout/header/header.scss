@@ -1,0 +1,41 @@
+﻿:host { position: absolute; inset: 8px 16px auto; z-index: 100; }
+.site-header { border: 1px solid #4d39271a; border-radius: 12px; background: #fffffff7; box-shadow: 0 4px 18px #21170e14; }
+.header-inner { width: min(88%, 1280px); min-height: 78px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.logo { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; color: #171715; font-size: 23px; letter-spacing: -.7px; }
+.logo-mark {
+  display: flex; align-items: flex-end; gap: 3px; height: 32px;
+  i { width: 11px; height: 15px; background: #4a301b; }
+  i:nth-child(2) { height: 25px; background: #92612c; }
+  i:nth-child(3) { height: 32px; background: #c48a43; }
+}
+.navigation {
+  display: flex; align-items: center; gap: clamp(14px, 1.8vw, 28px);
+  a { font-size: 12px; font-weight: 600; white-space: nowrap; }
+  a:hover, a.active { color: #a66a2c; }
+  .whatsapp-cta {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    margin-left: 20px; padding: 13px 18px; border-radius: 13px; background: #07823e; color: white;
+    svg { width: 21px; height: 21px; }
+    &:hover { background: #066a34; }
+  }
+}
+.menu-toggle { display: none; border: 0; background: transparent; font-size: 25px; }
+a:focus-visible, button:focus-visible { outline: 3px solid #c48a43; outline-offset: 5px; }
+@media (max-width: 1200px) and (min-width: 1001px) {
+  .header-inner { width: 94%; gap: 16px; }
+  .logo { font-size: 20px; }
+  .navigation { gap: 15px; .whatsapp-cta { margin-left: 4px; padding: 12px; } }
+}
+@media (max-width: 1000px) {
+  :host { inset: 8px 12px auto; }
+  .header-inner { width: 92%; min-height: 66px; }
+  .menu-toggle { display: grid; place-items: center; min-width: 44px; min-height: 44px; flex-shrink: 0; }
+  .navigation {
+    display: none; position: absolute; inset: calc(100% + 8px) 0 auto;
+    padding: 22px; border-radius: 12px; background: white; box-shadow: 0 10px 25px #21170e26;
+    max-height: calc(100dvh - 100px); overflow-y: auto;
+    &.open { display: flex; align-items: stretch; flex-direction: column; gap: 0; }
+    a { padding: 12px; font-size: 14px; }
+    .whatsapp-cta { margin: 12px 0 0; }
+  }
+}

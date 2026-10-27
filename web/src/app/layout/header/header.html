@@ -1,0 +1,22 @@
+﻿<header class="site-header">
+  <div class="header-inner">
+    <a routerLink="/" class="logo" (click)="closeMenu()" aria-label="Lanyi Pisos, inicio">
+      <span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span><strong>LANYI</strong> PISOS</span>
+    </a>
+    <button type="button" class="menu-toggle" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen()" aria-controls="main-navigation" aria-label="Abrir o cerrar menú">☰</button>
+    <nav id="main-navigation" class="navigation" [class.open]="menuOpen()" aria-label="Principal">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMenu()">Inicio</a>
+      <a routerLink="/pisos" (click)="closeMenu()">Productos</a>
+      <a routerLink="/accesorios" (click)="closeMenu()">Accesorios</a>
+      <a routerLink="/proyectos" (click)="closeMenu()">Proyectos</a>
+      <a routerLink="/nosotros" (click)="closeMenu()">Nosotros</a>
+      <a routerLink="/blog" (click)="closeMenu()">Blog</a>
+      <a routerLink="/contacto" (click)="closeMenu()">Contacto</a>
+      <a class="whatsapp-cta" href="https://wa.me/51971924719" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M20.5 12a8.5 8.5 0 0 1-12.6 7.5L3 21l1.3-4.7A8.5 8.5 0 1 1 20.5 12Z"/><path d="M8 7c-2 2 4 8 6 7l2-2-3-1-1 1-3-3 1-1Z"/></svg>
+        Cotiza por WhatsApp
+      </a>
+    </nav>
+  </div>
+</header>

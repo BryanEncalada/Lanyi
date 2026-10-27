@@ -1,0 +1,15 @@
+<section class="categories" aria-label="Categorías de productos">
+  <div class="categories-grid">
+    @for (category of categories; track category.slug) {
+      <a class="category-card" [routerLink]="category.slug === 'accesorios' ? '/accesorios' : '/pisos'"
+        [queryParams]="category.slug === 'accesorios' ? null : { categoria: category.slug }">
+        <img #categoryImage [src]="'/images/categories/' + category.slug + '.jpg'"
+          (error)="categoryImage.src = '/images/hero/hero01.jpeg'"
+          [style.object-position]="category.position" alt="" width="600" height="320" loading="lazy" />
+        <span class="category-name">{{ category.name }}</span>
+        <svg class="category-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+          stroke-width="1.8" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg>
+      </a>
+    }
+  </div>
+</section>

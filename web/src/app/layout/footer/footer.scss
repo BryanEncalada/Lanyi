@@ -1,0 +1,88 @@
+:host { display: block; }
+
+.site-footer {
+  padding: 48px 0 22px;
+  background: #20201f;
+  color: #bdbdb8;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1.3fr .65fr .8fr;
+  gap: clamp(24px, 4vw, 64px);
+  padding-bottom: 36px;
+  > * { min-width: 0; }
+}
+
+.footer-logo {
+  display: inline-block;
+  margin-bottom: 18px;
+  color: #e3a13c;
+  font-family: var(--font-heading);
+  font-size: 42px;
+  font-weight: 700;
+  line-height: .95;
+  span {
+    display: block;
+    margin-top: 6px;
+    color: #f3ede3;
+    font-family: var(--font-body);
+    font-size: 8px;
+    letter-spacing: 1.2px;
+  }
+}
+
+.footer-about p { margin-bottom: 0; max-width: 330px; }
+
+h2 {
+  margin: 4px 0 18px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #deded9;
+}
+
+address { display: grid; gap: 10px; font-style: normal; }
+.contact-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  > :first-child { flex-shrink: 0; width: 18px; text-align: center; }
+  svg { height: 18px; margin-top: 2px; fill: none; stroke: currentColor; stroke-width: 1.8; }
+  a { overflow-wrap: anywhere; }
+}
+
+.footer-links { display: flex; flex-direction: column; align-items: flex-start; }
+.footer-links a { padding-block: 2px; }
+a { transition: color .2s; }
+a:hover { color: #e3a13c; }
+a:focus-visible { outline: 2px solid #e3a13c; outline-offset: 4px; }
+.footer-whatsapp { display: inline-block; color: #eee; }
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px 32px;
+  padding-top: 18px;
+  border-top: 1px solid #ffffff14;
+  font-size: 11px;
+  p { margin: 0; }
+  nav { display: flex; flex-wrap: wrap; gap: 10px; }
+}
+
+@media (max-width: 1000px) {
+  .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+  .footer-bottom { align-items: flex-start; flex-direction: column; }
+}
+
+@media (max-width: 600px) {
+  .site-footer { padding-top: 36px; padding-bottom: 96px; }
+  .footer-grid { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  h2 { margin-bottom: 12px; }
+  .footer-links a { padding-block: 7px; }
+  .footer-bottom nav a { padding-block: 6px; }
+}

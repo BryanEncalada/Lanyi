@@ -1,0 +1,20 @@
+<section class="section testimonials" aria-labelledby="testimonials-title">
+  <div class="container">
+    <p class="section-label">Testimonios</p>
+    <h2 id="testimonials-title" class="section-title">Lo que dicen nuestros clientes</h2>
+
+    <!-- Contenido de muestra tomado de la referencia; sustituir por reseñas verificadas antes de publicar. -->
+    <div class="testimonials-grid">
+      @for (testimonial of testimonials; track testimonial.name) {
+        <figure class="testimonial-card">
+          <span class="quote-mark" aria-hidden="true">“</span>
+          <blockquote>{{ testimonial.quote }}</blockquote>
+          <figcaption>
+            <span class="customer-name">{{ testimonial.name }}</span>
+            <span class="customer-location">{{ testimonial.location }}</span>
+          </figcaption>
+        </figure>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+:root {
+  // Colores de marca
+  --color-primary: #a66a2c;
+  --color-primary-dark: #75461f;
+  --color-accent: #d8a15b;
+  --color-whatsapp: #008f45;
+
+  // Fondos y texto
+  --color-background: #faf8f5;
+  --color-surface: #ffffff;
+  --color-soft: #f2efea;
+  --color-text: #24201c;
+  --color-muted: #706b65;
+
+  // Fuentes
+  --font-heading: Georgia, 'Times New Roman', serif;
+  --font-body: 'Inter', Arial, sans-serif;
+
+  // Tamaños
+  --container-width: 1280px;
+  --section-spacing: 80px;
+
+  // Bordes y sombras
+  --radius-card: 12px;
+  --radius-button: 8px;
+  --shadow-card: 0 5px 24px rgba(0, 0, 0, 0.07);
+}
