@@ -1,1 +1,10 @@
-<p>advisor-banner works!</p>
+<section class="benefits" aria-label="Por qué elegir Lanyi">
+  <div class="benefits-inner">
+    @for (benefit of benefits; track benefit.icon) {
+      <div class="benefit">
+        <app-icon [name]="benefit.icon" />
+        <p>{{ benefit.text }}<br />{{ benefit.detail }}</p>
+      </div>
+    }
+  </div>
+</section>

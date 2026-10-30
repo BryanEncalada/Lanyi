@@ -1,15 +1,17 @@
 <section class="categories" aria-label="Categorías de productos">
-  <div class="categories-grid">
+  <div class="container categories-grid">
     @for (category of categories; track category.slug) {
-      <a class="category-card" [routerLink]="category.slug === 'accesorios' ? '/accesorios' : '/pisos'"
-        [queryParams]="category.slug === 'accesorios' ? null : { categoria: category.slug }">
-        <img #categoryImage [src]="'/images/categories/' + category.slug + '.jpg'"
-          (error)="categoryImage.src = '/images/hero/hero01.jpeg'"
-          [style.object-position]="category.position" alt="" width="600" height="320" loading="lazy" />
-        <span class="category-name">{{ category.name }}</span>
-        <svg class="category-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-          stroke-width="1.8" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" /></svg>
-      </a>
+      <a
+        class="category-card"
+        [routerLink]="
+          category.slug === 'zocalos' || category.slug === 'accesorios' ? '/accesorios' : '/pisos'
+        "
+      >
+        <app-reference-photo [rect]="category.photo" [alt]="category.name" /><span
+          class="category-name"
+          >{{ category.name }}</span
+        ><span class="category-arrow"><app-icon name="arrow" /></span
+      ></a>
     }
   </div>
 </section>

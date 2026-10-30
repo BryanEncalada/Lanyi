@@ -1,0 +1,141 @@
+@use '../../../../../styles/page-banner' as banner;
+:host {
+  display: block;
+}
+.about-hero {
+  @include banner.layout;
+  color: white;
+  background:
+    linear-gradient(90deg, #2a2118df, #3e2c1a88 65%, #3e2c1a22),
+    url('/images/hero/hero01.jpeg') center 57% / cover;
+  h1 {
+    max-width: 880px;
+  }
+  .hero-description {
+    margin-bottom: 0;
+  }
+}
+.company-section {
+  padding-block: 48px;
+}
+.company-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 65px;
+  align-items: center;
+}
+.company-image {
+  position: relative;
+  margin: 0;
+  min-width: 0;
+  img {
+    aspect-ratio: 1.6;
+    max-height: 360px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 8px;
+    width: 100%;
+  }
+  app-reference-photo {
+    height: auto;
+    border-radius: 8px;
+  }
+  figcaption {
+    font-size: 10px;
+    color: #8d867c;
+    margin-top: 10px;
+  }
+}
+.experience {
+  position: absolute;
+  bottom: 40px;
+  left: 25px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 13px 19px;
+  background: #fffdf7f5;
+  border-radius: 6px;
+  strong {
+    font:
+      700 37px Georgia,
+      serif;
+    color: #a77430;
+  }
+  span {
+    font-size: 12px;
+    line-height: 1.5;
+  }
+}
+.company-copy h2,
+.value-inner h2 {
+  font-size: 34px;
+  letter-spacing: -0.8px;
+  line-height: 1.15;
+  margin-bottom: 23px;
+}
+.company-copy p:not(.section-label) {
+  font-size: 14px;
+  line-height: 1.85;
+  color: #766d62;
+  margin-bottom: 17px;
+}
+.company-copy p:last-child {
+  margin-bottom: 0;
+}
+.value-section {
+  background: #f5f2ec;
+  border-block: 1px solid #eee8de;
+  padding: 40px 0;
+}
+.value-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 65px;
+  align-items: center;
+  h2 {
+    margin: 0;
+  }
+  > p {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #756b5e;
+    margin: 0;
+  }
+}
+@media (max-width: 1000px) {
+  .company-grid,
+  .value-inner {
+    gap: 35px;
+  }
+  .company-copy h2,
+  .value-inner h2 {
+    font-size: 29px;
+  }
+}
+@media (max-width: 650px) {
+  .company-section {
+    padding-block: 32px;
+  }
+  .company-grid,
+  .value-inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .company-image img {
+    aspect-ratio: 1.5;
+    max-height: 280px;
+  }
+  .experience {
+    left: 18px;
+    bottom: 35px;
+    padding: 13px 19px;
+    strong {
+      font-size: 37px;
+    }
+  }
+  .company-copy h2,
+  .value-inner h2 {
+    font-size: 28px;
+  }
+}

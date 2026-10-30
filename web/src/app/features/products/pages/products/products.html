@@ -1,0 +1,142 @@
+<section class="catalog-hero" [class.floor-hero]="isFloors()" aria-labelledby="catalog-title">
+  <div class="hero-photo" aria-hidden="true">
+    @if (isFloors()) {
+      <img src="/images/hero/hero01.jpeg" alt="" />
+    } @else {
+      <app-reference-photo source="catalog" [rect]="[549, 57, 349, 260]" />
+    }
+  </div>
+  <div class="container hero-inner">
+    <nav class="breadcrumb" aria-label="Ruta de navegación">
+      <a routerLink="/">Inicio</a><span>›</span><span>{{ categoryName() }}</span>
+    </nav>
+    <h1 id="catalog-title">Catálogo de {{ categoryName() }}</h1>
+    <p class="hero-description">{{ description() }}</p>
+    <ul class="catalog-benefits">
+      <li>
+        <span><app-icon name="shield" /></span>Calidad para<br />tus espacios
+      </li>
+      <li>
+        <span><app-icon name="diamond" /></span>Gran variedad<br />de diseños
+      </li>
+      <li>
+        <span><app-icon name="gear" /></span>Asesoría especializada
+      </li>
+    </ul>
+  </div>
+</section>
+<section class="catalog container" aria-label="Catálogo de productos">
+  <button
+    class="mobile-filter-toggle"
+    type="button"
+    (click)="mobileFilters.set(!mobileFilters())"
+    [attr.aria-expanded]="mobileFilters()"
+    aria-controls="catalog-filters"
+  >
+    ☷ Filtros
+    @if (activeCount()) {
+      <span>({{ activeCount() }})</span>
+    }
+    <span>{{ mobileFilters() ? '−' : '+' }}</span>
+  </button>
+  <aside class="sidebar" id="catalog-filters" [class.mobile-open]="mobileFilters()">
+    <div class="filter-panel">
+      <div class="filter-heading">
+        <h2>Filtros</h2>
+        <a [routerLink]="catalogPath()" (click)="clear()">Limpiar filtros</a>
+      </div>
+      @for (group of groups(); track group.key; let i = $index) {
+        <details open class="filter-group">
+          <summary>{{ group.title }} <span>⌄</span></summary>
+          <div class="filter-options">
+            @for (option of group.options; track option) {
+              <label
+                ><input
+                  type="checkbox"
+                  [checked]="selected(group.key, option)"
+                  (change)="toggle(group.key, option)"
+                />
+                <span>{{ option }}{{ group.key === 'height' ? ' mm' : '' }}</span></label
+              >
+            }
+          </div>
+        </details>
+        @if (i === 0) {
+          <details open class="filter-group">
+            <summary>Color <span>⌄</span></summary>
+            <div class="color-filters">
+              @for (color of availableColors(); track color.name) {
+                <button
+                  type="button"
+                  [style.background]="color.value"
+                  [class.selected]="selected('color', color.name)"
+                  [attr.aria-label]="color.name"
+                  [attr.aria-pressed]="selected('color', color.name)"
+                  [title]="color.name"
+                  (click)="toggle('color', color.name)"
+                ></button>
+              }
+            </div>
+          </details>
+        }
+      }
+    </div>
+    <div class="help-card">
+      <div class="help-photo" aria-hidden="true">
+        <app-reference-photo source="catalog" [rect]="[155, 1049, 73, 218]" />
+      </div>
+      <div class="help-content">
+        <h3><app-icon name="chat" /> ¿Necesitas asesoría?</h3>
+        <p>
+          Te ayudamos a elegir {{ isFloors() ? 'el piso' : 'el accesorio' }} ideal para tu proyecto.
+        </p>
+        <a href="https://wa.me/51971924719" target="_blank" rel="noopener noreferrer"
+          ><app-icon name="whatsapp" /> Hablar por WhatsApp</a
+        >
+      </div>
+    </div>
+  </aside>
+  <div class="catalog-main">
+    <div class="catalog-toolbar">
+      <p aria-live="polite">
+        {{ results().length }} {{ results().length === 1 ? 'resultado' : 'resultados' }}
+      </p>
+      <label for="product-sort"
+        >Ordenar por:
+        <select id="product-sort" [value]="sort()" (change)="sort.set($any($event.target).value)">
+          <option value="popular">Más populares</option>
+          <option value="name">Nombre: A a Z</option>
+          <option value="height-asc">Menor {{ isFloors() ? 'espesor' : 'altura' }}</option>
+          <option value="height-desc">Mayor {{ isFloors() ? 'espesor' : 'altura' }}</option>
+        </select></label
+      >
+    </div>
+    @if (preset()) {
+      <p class="preset-note">
+        Mostrando: {{ preset() }}.
+        <a [routerLink]="catalogPath()" (click)="clear()"
+          >Ver todos los {{ categoryName().toLowerCase() }}</a
+        >
+      </p>
+    }
+    <div class="catalog-grid">
+      @for (product of results(); track product.id) {
+        <app-product-card [product]="product" />
+      }
+    </div>
+    @if (!results().length) {
+      <div class="empty-state">
+        <app-icon name="chat" />
+        <h2>No encontramos esa combinación</h2>
+        <p>Prueba con otros filtros o consulta a nuestro equipo.</p>
+        <a class="btn btn-primary" [routerLink]="catalogPath()" (click)="clear()"
+          >Limpiar filtros</a
+        >
+      </div>
+    }
+    <p class="catalog-note">
+      Catálogo de muestra basado en la referencia. Consulta disponibilidad y especificaciones al
+      cotizar.
+    </p>
+  </div>
+</section>

@@ -1,59 +1,47 @@
-# Web
+# Lanyi Pisos
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.13.
+Proyecto Angular existente, con componentes standalone, SCSS y navegación mediante Angular Router.
 
-## Development server
+## Desarrollo
 
-To start a local development server, run:
-
-```bash
-ng serve
+```sh
+npm install
+npm start
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Home: http://localhost:4200/
+- Pisos: http://localhost:4200/pisos
+- Accesorios (zócalos y rodones): http://localhost:4200/accesorios
+- Nosotros: http://localhost:4200/nosotros
+- Las rutas anteriores /zocalos y /productos redirigen a /accesorios.
 
-## Code scaffolding
+Las páginas cargan de forma diferida dentro del único router-outlet de App. Header, Footer y el acceso flotante a WhatsApp se montan una sola vez en el layout.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Catálogo y contenido
 
-```bash
-ng generate component component-name
+- Catálogo: src/app/shared/data/products.ts.
+- Pisos destacados y catálogo de Pisos: src/app/shared/data/floors.ts.
+- Pisos y Accesorios usan Products con datos de categoría en las rutas, sin duplicar la plantilla ni mezclar productos.
+- Nosotros reutiliza la imagen del proyecto y la identifica como referencial.
+- Todos los iconos de WhatsApp usan el mismo SVG del componente Icon.
+- Componentes reutilizables: ProductCard, Icon y ReferencePhoto.
+- Filtros combinables: material, color, acabado, altura y uso. Orden por nombre o altura, contador y estado sin resultados.
+- En móvil los filtros se despliegan mediante un botón y el menú se convierte en un panel.
+- Los botones de cotización abren WhatsApp con el producto seleccionado; no envían mensajes automáticamente.
+- Home incluye detalles de pisos y proyectos y lectura de publicaciones en diálogos nativos.
+
+Los productos, precios, testimonios y proyectos de la propuesta son contenido ilustrativo tomado de las referencias. Revisar la información comercial antes de publicar. La fotografía principal de Home es la que ya estaba en el proyecto. Las demás fotografías usan encuadres CSS de las referencias adjuntas, por lo que se recomienda reemplazarlas por originales de alta resolución. Ver public/images/references/README.md.
+
+## Compilación y publicación
+
+```sh
+npm run build
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Salida estática: dist/web/browser. El servidor de producción debe servir index.html como fallback para rutas de Angular que no sean archivos; así /pisos, /accesorios y /nosotros también funcionan al entrar directamente o recargar. Por ejemplo, en Nginx: `try_files $uri $uri/ /index.html;`.
 
-```bash
-ng generate --help
-```
+No se han añadido dependencias ni servicios externos.
 
-## Building
+## Verificación
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Compilación de producción y revisión en navegador de Home y Productos en escritorio, tablet y móvil. Se verificaron filtros combinados, orden, limpieza, estado vacío, navegación Angular, menú móvil, enlaces de cotización y detalles de pisos.

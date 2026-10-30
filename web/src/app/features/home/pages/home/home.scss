@@ -1,3 +1,38 @@
 :host {
   display: block;
+  --home-section-space: 72px;
+  --home-category-space: 32px;
+  --home-section-title-size: 36px;
+  --home-label-size: 11px;
+  --home-heading-gap: 26px;
+}
+.projects-proof {
+  --proof-background: #f7f6f3;
+  width: 95.4%;
+  max-width: 1450px;
+  margin-inline: auto;
+  background: var(--proof-background);
+  border-radius: 7px;
+  overflow: hidden;
+}
+@media (max-width: 850px) {
+  :host {
+    --home-section-space: 56px;
+    --home-category-space: 24px;
+    --home-section-title-size: 32px;
+  }
+}
+@media (max-width: 700px) {
+  .projects-proof {
+    width: 90%;
+  }
+}
+@media (max-width: 600px) {
+  :host {
+    --home-section-space: 36px;
+    --home-category-space: 20px;
+    --home-section-title-size: 29px;
+    --home-label-size: 10px;
+    --home-heading-gap: 22px;
+  }
 }

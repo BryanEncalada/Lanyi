@@ -1,0 +1,55 @@
+:host {
+  display: block;
+}
+.benefits {
+  background: var(--proof-background, #f7f6f3);
+}
+.benefits-inner {
+  max-width: 1340px;
+  width: calc(100% - 64px);
+  border-top: 1px solid #e6e0d7;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 24px 0;
+}
+.benefit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 17px;
+  border-right: 1px solid #e6e0d755;
+  &:last-child {
+    border: 0;
+  }
+  app-icon {
+    width: 43px;
+    height: 43px;
+    color: #a27840;
+  }
+  p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+@media (max-width: 700px) {
+  .benefits-inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px 12px;
+    width: calc(100% - 36px);
+    padding: 24px 0;
+  }
+  .benefit {
+    justify-content: flex-start;
+    border: 0;
+    gap: 10px;
+    app-icon {
+      width: 30px;
+      height: 30px;
+    }
+    p {
+      font-size: 11px;
+    }
+  }
+}

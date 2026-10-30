@@ -1,81 +1,79 @@
 :host {
   display: block;
 }
-
 .testimonials {
-  background: var(--color-surface);
+  background: white;
 }
-
-.section-title {
-  margin-bottom: 28px;
-  text-wrap: balance;
-}
-
 .testimonials-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
 }
-
 .testimonial-card {
   display: grid;
-  grid-template-columns: 38px minmax(0, 1fr);
-  grid-template-rows: 1fr auto;
-  column-gap: 12px;
-  row-gap: 28px;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 18px 12px;
   margin: 0;
-  padding: 28px 24px;
-  border: 1px solid #3021160d;
-  border-radius: 8px;
-  background: var(--color-surface);
-  box-shadow: 0 3px 16px #30211608;
+  padding: 20px 21px 17px;
+  border: 1px solid #efede91a;
+  border-radius: 7px;
+  background: white;
+  box-shadow: 0 2px 15px #30211607;
 }
-
 .quote-mark {
-  color: #df9a35;
-  font-family: var(--font-heading);
-  font-size: 76px;
-  font-weight: 700;
-  line-height: 1;
+  color: #e5a037;
+  font-family: Georgia, serif;
+  font-size: 64px;
+  font-weight: bold;
+  line-height: 0.85;
 }
-
 blockquote {
   margin: 0;
-  font-family: var(--font-body);
-  font-size: 14px;
-  line-height: 1.75;
+  font-size: 12px;
+  line-height: 1.7;
 }
-
 figcaption {
-  grid-column: 2;
-  display: grid;
-  gap: 6px;
-  font-size: 14px;
+  grid-column: 1/-1;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: 8px;
 }
-
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
 .customer-name {
-  font-weight: 700;
+  font-size: 12px;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
 }
-
 .customer-location {
-  color: var(--color-muted);
-  font-size: 13px;
+  display: block;
+  font-size: 11px;
+  color: #908a81;
 }
-
-@media (max-width: 1000px) {
-  .testimonials-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.sample-note {
+  font-size: 10px;
+  color: #938c82;
+  margin: 12px 0 0;
 }
-
-@media (max-width: 600px) {
+@media (max-width: 750px) {
   .testimonials-grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 16px;
+    grid-template-columns: 1fr;
   }
-
   .testimonial-card {
-    padding: 24px 20px;
-    row-gap: 20px;
+    padding: 20px;
+  }
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+  blockquote {
+    font-size: 13px;
   }
 }

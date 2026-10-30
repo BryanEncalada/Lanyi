@@ -1,0 +1,65 @@
+// Shared geometry and typography for the internal page banners.
+@mixin layout {
+  display: flex;
+  align-items: center;
+  min-height: 320px;
+  .hero-inner {
+    padding-block: 40px 35px;
+  }
+  .breadcrumb {
+    display: flex;
+    gap: 13px;
+    font-size: 12px;
+    margin-bottom: 23px;
+  }
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+  h1 {
+    font-family: var(--font-body);
+    font-size: 46px;
+    letter-spacing: -1px;
+    line-height: 1.15;
+    margin-bottom: 13px;
+  }
+  .hero-description {
+    font-size: 16px;
+    line-height: 1.55;
+    margin-bottom: 25px;
+    max-width: 590px;
+  }
+  @media (min-width: 1400px) {
+    min-height: 340px;
+    .hero-inner {
+      padding-block: 48px;
+    }
+  }
+  @media (max-width: 1000px) {
+    min-height: 300px;
+    .hero-inner {
+      padding-block: 30px;
+    }
+    .hero-description {
+      font-size: 14px;
+    }
+    h1 {
+      font-size: 39px;
+    }
+  }
+  @media (max-width: 650px) {
+    min-height: 360px;
+    .hero-inner {
+      padding-block: 24px 28px;
+    }
+    h1 {
+      font-size: 33px;
+    }
+    .hero-description {
+      font-size: 13px;
+      max-width: 90%;
+    }
+    .breadcrumb {
+      margin-bottom: 17px;
+    }
+  }
+}
