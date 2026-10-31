@@ -1,0 +1,24 @@
+<div class="category-bar"><div class="container category-inner">
+  <span class="explore">Explora por categoría</span>
+  <nav aria-label="Categorías del blog">@for (item of categories; track item) {
+    <button type="button" [class.active]="category() === item" [attr.aria-pressed]="category() === item" (click)="category.set(item)">{{ item }}</button>
+  }</nav>
+  <label class="search"><app-icon name="search" /><input type="search" placeholder="Buscar artículos..." aria-label="Buscar artículos" [value]="search()" (input)="search.set($any($event.target).value)" /></label>
+</div></div>
+<section class="section publications"><div class="container">
+  <div class="section-heading"><div><p class="section-label">Consejos y novedades</p><h1 class="section-title">Últimas publicaciones</h1></div>
+    <button class="text-link" type="button" (click)="reset()">Ver todas las publicaciones <app-icon name="arrow" /></button>
+  </div>
+  <div class="posts" aria-live="polite">@for (post of results(); track post.slug) {
+    <article class="post"><a class="post-button" [routerLink]="['/blog', post.slug]">
+      <div class="post-image"><app-reference-photo [rect]="post.photo" [alt]="post.title" /><span class="badge">{{ post.category }}</span></div>
+      <div class="post-content"><h2>{{ post.title }}</h2><p>{{ post.description }}</p><div class="post-meta"><time [attr.datetime]="post.date"><app-icon name="document" />{{ post.displayDate }}</time><span>Leer más <app-icon name="arrow" /></span></div></div>
+    </a></article>
+  } @empty { <div class="empty"><p>No encontramos publicaciones con estos filtros.</p><button class="text-link" type="button" (click)="reset()">Ver todas las publicaciones <app-icon name="arrow" /></button></div> }</div>
+</div></section>
+<section class="recommendations container" aria-labelledby="recommendations-title">
+  <div class="recommendation-heading"><p class="section-label">Artículos para descubrir</p><h2 id="recommendations-title">Te puede interesar</h2><p>Descubre más contenido para inspirarte y sacar el máximo provecho a tus espacios.</p></div>
+  <div class="recommendation-list">@for (post of recommendations; track post.slug) {
+    <a class="recommendation" [routerLink]="['/blog', post.slug]"><div class="thumb"><app-reference-photo [rect]="post.photo" [alt]="post.title" /></div><div class="recommendation-body"><span class="badge">{{ post.category }}</span><h3>{{ post.title }}</h3><div class="post-meta"><time [attr.datetime]="post.date">{{ post.displayDate }}</time><span>Leer más <app-icon name="arrow" /></span></div></div></a>
+  }</div>
+</section>

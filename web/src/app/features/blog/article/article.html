@@ -1,0 +1,26 @@
+<section class="article-page container">
+  <nav class="back"><a routerLink="/blog">← Todas las publicaciones</a></nav>
+  @if (post(); as item) {
+    <header class="article-header"><div class="intro"><p class="section-label">{{ item.category }}</p><h1>{{ item.title }}</h1><p class="description">{{ item.description }}</p>
+      <div class="metadata"><time [attr.datetime]="item.date"><app-icon name="document" />{{ item.displayDate }}</time><span><app-icon name="clock" />{{ isGuide() ? '5' : '3' }} min de lectura</span>
+        <div class="share"><span>Compartir:</span><a [href]="shareUrl('facebook')" target="_blank" rel="noopener noreferrer" aria-label="Compartir en Facebook">f</a><a [href]="shareUrl('whatsapp')" target="_blank" rel="noopener noreferrer" aria-label="Compartir en WhatsApp"><app-icon name="whatsapp" /></a><a [href]="shareUrl('linkedin')" target="_blank" rel="noopener noreferrer" aria-label="Compartir en LinkedIn">in</a><button type="button" (click)="copyLink()" aria-label="Copiar enlace"><app-icon name="link" /></button></div>
+      </div><p class="copy-status" role="status">{{ copyStatus() }}</p>
+    </div><div class="hero-photo"><app-reference-photo [rect]="item.photo" [alt]="item.title" /></div></header>
+    <div class="article-layout"><article class="article-body">
+      @if (isGuide()) {
+        <p>Elegir el piso adecuado es una decisión importante que influye en la estética, comodidad y durabilidad de tu hogar. En esta guía te compartimos los factores clave que debes tener en cuenta para tomar la mejor decisión.</p>
+        <h2>1. Define el uso del espacio</h2><p>Cada ambiente tiene necesidades diferentes. No es lo mismo un piso para una sala que para una cocina o una terraza.</p>
+        <div class="expert-row"><div class="room-photo"><app-reference-photo [rect]="item.photo" alt="Ambiente interior con piso de tono natural" /></div><aside class="expert-tip"><app-icon name="bulb" /><h3>Tip de experto</h3><p>Para espacios de alto tránsito, recomendamos revisar la resistencia al desgaste indicada en la ficha técnica de cada producto.</p></aside></div>
+        <h2>2. Conoce los tipos de piso</h2><p>En Lanyi Pisos trabajamos con diferentes materiales, cada uno con características únicas que se adaptan a distintos estilos y presupuestos.</p>
+        <div class="floor-types">@for (floor of floorTypes; track floor.type) { <a routerLink="/pisos" [queryParams]="{tipo: floor.type}"><div class="floor-photo"><app-reference-photo [rect]="floor.photo" [alt]="floor.name" /></div><div><h3>{{ floor.name }}</h3><p>{{ floor.text }}</p></div></a> }</div>
+        <h2>3. Compara muestras y acabados</h2><p>{{ paragraphs()[0] }}</p><h2>4. Planifica la instalación y el mantenimiento</h2><p>{{ paragraphs()[1] }}</p>
+      } @else {
+        @for (paragraph of paragraphs(); track paragraph; let i = $index) { <h2>{{ i === 0 ? 'Lo que debes tener en cuenta' : 'Antes de decidir' }}</h2><p>{{ paragraph }}</p> }
+        <div class="expert-tip"><app-icon name="bulb" /><h3>Tip de experto</h3><p>Compara muestras en tu espacio y consulta las especificaciones del fabricante para elegir el material adecuado para tu proyecto.</p></div>
+        <a class="text-link" routerLink="/pisos">Explora nuestros pisos <app-icon name="arrow" /></a>
+      }
+    </article><aside class="sidebar"><section class="related"><h2>Artículos relacionados</h2>@for (other of related(); track other.slug) { <a [routerLink]="['/blog', other.slug]"><div class="related-photo"><app-reference-photo [rect]="other.photo" [alt]="other.title" /></div><div><h3>{{ other.title }}</h3><time [attr.datetime]="other.date">{{ other.displayDate }}</time></div></a> }</section>
+      <section class="advice"><app-icon name="chat" /><div><h2>¿Necesitas asesoría?</h2><p>Nuestro equipo te ayuda a elegir el piso ideal para tu proyecto.</p></div><a class="btn btn-primary" href="https://wa.me/51971924719" target="_blank" rel="noopener noreferrer"><app-icon name="whatsapp" /> Cotiza por WhatsApp</a></section>
+    </aside></div>
+  } @else { <h1>Publicación no encontrada</h1><p>Encuentra más consejos y novedades en nuestro blog.</p><a class="btn btn-primary" routerLink="/blog">Volver al blog</a> }
+</section>

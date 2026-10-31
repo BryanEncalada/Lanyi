@@ -45,6 +45,9 @@ import { Component, input } from '@angular/core';
 export class Icon {
   readonly name = input('arrow');
   readonly paths: Record<string, string> = {
+    link: 'M10 13a5 5 0 0 0 7 0l3-3a5 5 0 0 0-7-7l-2 2M14 11a5 5 0 0 0-7 0l-3 3a5 5 0 0 0 7 7l2-2',
+    bulb: 'M9 18h6M9 21h6M8 14a6 6 0 1 1 8 0l-1 3H9ZM12 1v1M3 5l2 2M21 5l-2 2',
+    search: 'M21 21l-6-6M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z',
     check: 'M20 6 9 17l-5-5',
     clock: 'M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0ZM12 7v5l3 2',
     arrow: 'M4 12h16m-6-6 6 6-6 6',

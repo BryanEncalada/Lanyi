@@ -5,14 +5,14 @@
         <p class="section-label">Consejos y novedades</p>
         <h2 class="section-title" id="blog-title">Últimas publicaciones</h2>
       </div>
-      <button class="text-link" type="button" (click)="open(posts[0], articleDialog)">
+      <a class="text-link" routerLink="/blog">
         Ver todas las publicaciones <app-icon name="arrow" />
-      </button>
+      </a>
     </div>
     <div class="blog-grid">
       @for (post of posts; track post.slug; let i = $index) {
         <article class="post-card">
-          <button class="post-link" type="button" (click)="open(post, articleDialog)">
+          <a class="post-link" [routerLink]="['/blog', post.slug]">
             <div class="post-image">
               <app-reference-photo [rect]="photos[i]" [alt]="post.title" />
             </div>
@@ -21,45 +21,9 @@
               <p>{{ post.description }}</p>
               <time [attr.datetime]="post.date">{{ post.displayDate }}</time>
             </div>
-          </button>
+          </a>
         </article>
       }
     </div>
   </div>
 </section>
-<dialog
-  #articleDialog
-  class="detail-dialog article-dialog"
-  (click)="$event.target === articleDialog && articleDialog.close()"
->
-  @if (selected(); as post) {
-    <button
-      class="dialog-close"
-      type="button"
-      aria-label="Cerrar publicación"
-      (click)="articleDialog.close()"
-    >
-      ×
-    </button>
-    <div class="dialog-body">
-      <p class="section-label">Consejos y novedades</p>
-      <h2>{{ post.title }}</h2>
-      <p>{{ post.description }}</p>
-      @for (paragraph of articles[post.slug]; track paragraph) {
-        <p>{{ paragraph }}</p>
-      }
-      <a
-        class="btn btn-whatsapp"
-        href="https://wa.me/51971924719"
-        target="_blank"
-        rel="noopener noreferrer"
-        >Recibe asesoría personalizada</a
-      >
-      <nav class="other-posts" aria-label="Otras publicaciones">
-        @for (other of posts; track other.slug) {
-          <button type="button" (click)="selected.set(other)">{{ other.title }} →</button>
-        }
-      </nav>
-    </div>
-  }
-</dialog>
