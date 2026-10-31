@@ -103,3 +103,17 @@ p {
   margin-top: 12px;
   color: var(--color-text);
 }
+
+.product-content .btn-detail {
+  margin-bottom: 10px;
+  min-height: 44px;
+  border: 1px solid #b5844d;
+  background: #fff;
+  color: #875017;
+  &:hover {
+    background: #faf4ec;
+  }
+}
+.btn-primary {
+  min-height: 46px;
+}

@@ -1,0 +1,62 @@
+<section class="section product-page">
+  <div class="container">
+    @if (product(); as item) {
+      <nav class="breadcrumb" aria-label="Ruta de navegación">
+        <a routerLink="/">Inicio</a><span>/</span>
+        <a [routerLink]="['/', item.category]">{{ item.category === 'pisos' ? 'Pisos' : 'Accesorios' }}</a><span>/</span>
+        <span aria-current="page">{{ item.name }}</span>
+      </nav>
+      <div class="detail-layout">
+        <article class="product-overview" aria-label="Características del producto">
+          <div class="product-photo">
+            <app-reference-photo [source]="item.photoSource ?? 'catalog'" [rect]="item.photo" [alt]="item.name" />
+          </div>
+          <div class="product-info">
+            <p class="section-label">{{ item.category === 'pisos' ? 'Pisos Lanyi' : 'Accesorios Lanyi' }}</p>
+            <h1>{{ item.name }}</h1>
+            <p class="description">{{ item.description }}</p>
+            <dl>
+              <div><dt>Material</dt><dd>{{ item.material }}</dd></div>
+              @if (item.height) { <div><dt>{{ item.category === 'pisos' ? 'Espesor' : 'Altura' }}</dt><dd>{{ item.height }} mm</dd></div> }
+              @if (item.spec) { <div><dt>Especificaciones</dt><dd>{{ item.spec }}</dd></div> }
+              <div><dt>Acabado</dt><dd>{{ item.finish }}</dd></div>
+              <div><dt>Uso recomendado</dt><dd>{{ item.usage.join(', ') }}</dd></div>
+            </dl>
+            <p class="colors-title">Colores disponibles</p>
+            <div class="colors">@for (color of item.colors; track color; let i = $index) {
+              <span [style.background]="color" role="img" [attr.aria-label]="item.colorFamilies[i] || 'Color del producto'"></span>
+            }</div>
+            @if (item.price) { <strong class="price">S/ {{ item.price }} <small>por m²</small></strong> }
+            <a class="btn btn-primary" [href]="quote(item.name)" target="_blank" rel="noopener noreferrer"><app-icon name="whatsapp" /> Solicitar cotización por WhatsApp</a>
+          </div>
+        </article>
+        <aside class="calculator" aria-labelledby="calculator-title">
+          <h2 id="calculator-title">Calcula tu piso en minutos</h2>
+          <p>Ingresa tus medidas y obtén una estimación. Luego solicita tu cotización personalizada.</p>
+          <div class="fields">
+            <label>Tipo de piso
+              <select [value]="calculatorProduct().id" (change)="chosenFloor.set($any($event.target).value)">
+                @for (floor of floors; track floor.id) { <option [value]="floor.id">{{ floor.name }}</option> }
+              </select>
+            </label>
+            <label>Superficie a cubrir (m²)
+              <input type="number" min="0.01" step="0.01" inputmode="decimal" [value]="area()" (input)="updateArea($any($event.target).value)" aria-describedby="area-help" />
+            </label>
+          </div>
+          @if (!area()) { <p id="area-help" class="error">Ingresa una superficie mayor que cero.</p> }
+          <label class="installation">Necesito instalación <input type="checkbox" role="switch" [checked]="installation()" (change)="installation.set($any($event.target).checked)" /></label>
+          <div class="estimate" aria-live="polite" aria-atomic="true">
+            <span>Material estimado (incluye 10% adicional)</span>
+            <strong>{{ estimate() | number:'1.2-2' }} m²</strong>
+          </div>
+          @if (area() > 0) {
+            <a class="btn btn-primary" [href]="calculatedQuote()" target="_blank" rel="noopener noreferrer"><app-icon name="whatsapp" /> Solicitar cotización ahora</a>
+          } @else { <button class="btn btn-primary" disabled>Solicitar cotización ahora</button> }
+          <p class="estimate-note">Estimación referencial con 10% para cortes y desperdicio. La cantidad final se confirma al cotizar.</p>
+        </aside>
+      </div>
+    } @else {
+      <h1>Producto no encontrado</h1><p>Revisa los productos disponibles en nuestro catálogo.</p><a class="btn btn-primary" routerLink="/pisos">Ver pisos</a>
+    }
+  </div>
+</section>

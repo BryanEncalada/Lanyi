@@ -24,6 +24,18 @@ export const routes: Routes = [
     title: 'Nosotros | Más de 25 años | Lanyi Pisos',
     loadComponent: () => import('./features/about/pages/about/about').then((m) => m.About),
   },
+  {
+    path: 'pisos/:id',
+    title: 'Detalle del piso | Lanyi Pisos',
+    data: { category: 'pisos' },
+    loadComponent: () => import('./features/products/pages/product-detail/product-detail').then(m => m.ProductDetail),
+  },
+  {
+    path: 'accesorios/:id',
+    title: 'Detalle del accesorio | Lanyi Pisos',
+    data: { category: 'accesorios' },
+    loadComponent: () => import('./features/products/pages/product-detail/product-detail').then(m => m.ProductDetail),
+  },
   { path: 'zocalos', redirectTo: 'accesorios', pathMatch: 'full' },
   { path: 'productos', redirectTo: 'accesorios', pathMatch: 'full' },
   { path: '**', redirectTo: '' },
