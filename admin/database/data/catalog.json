@@ -1,0 +1,359 @@
+[
+  {
+    "id": "roble-natural",
+    "name": "Piso Laminado Roble Natural",
+    "spec": "AC4 | 8 mm",
+    "price": "69.90",
+    "description": "Un acabado cálido y natural que acompaña espacios contemporáneos.",
+    "photo": [
+      42,
+      685,
+      149,
+      77
+    ],
+    "material": "Laminado",
+    "finish": "Diseño madera",
+    "height": 8,
+    "colors": [
+      "#c6a579"
+    ],
+    "colorFamilies": [
+      "Arena",
+      "Roble"
+    ],
+    "category": "pisos",
+    "photoSource": "home",
+    "usage": [
+      "Hogar"
+    ]
+  },
+  {
+    "id": "gris-artico",
+    "name": "Piso Laminado Gris Ártico",
+    "spec": "AC4 | 8 mm",
+    "price": "69.90",
+    "description": "Tonos grises suaves para interiores luminosos y modernos.",
+    "photo": [
+      204,
+      685,
+      150,
+      77
+    ],
+    "material": "Laminado",
+    "finish": "Diseño madera",
+    "height": 8,
+    "colors": [
+      "#b6b0a5"
+    ],
+    "colorFamilies": [
+      "Gris"
+    ],
+    "category": "pisos",
+    "photoSource": "home",
+    "usage": [
+      "Hogar"
+    ]
+  },
+  {
+    "id": "bambu-caramelo",
+    "name": "Piso de Bambú Caramelo",
+    "spec": "Alta resistencia",
+    "price": "89.90",
+    "description": "La textura y calidez del bambú para dar carácter a tu hogar.",
+    "photo": [
+      367,
+      685,
+      150,
+      77
+    ],
+    "material": "Bambú",
+    "finish": "Bambú",
+    "colors": [
+      "#bd834b"
+    ],
+    "colorFamilies": [
+      "Canela",
+      "Roble"
+    ],
+    "category": "pisos",
+    "photoSource": "home",
+    "usage": [
+      "Hogar"
+    ]
+  },
+  {
+    "id": "madera-nogal",
+    "name": "Piso de Madera Nogal",
+    "spec": "Madera natural",
+    "price": "129.90",
+    "description": "Vetas profundas y tonos elegantes de madera natural.",
+    "photo": [
+      531,
+      685,
+      147,
+      77
+    ],
+    "material": "Madera",
+    "finish": "Madera natural",
+    "colors": [
+      "#80512f"
+    ],
+    "colorFamilies": [
+      "Nogal"
+    ],
+    "category": "pisos",
+    "photoSource": "home",
+    "usage": [
+      "Hogar"
+    ]
+  },
+  {
+    "category": "accesorios",
+    "id": "mdf-blanco",
+    "colorFamilies": [
+      "Blanco",
+      "Gris"
+    ],
+    "name": "Zócalo MDF Blanco",
+    "material": "MDF",
+    "finish": "Liso",
+    "height": 80,
+    "usage": [
+      "Hogar",
+      "Oficina"
+    ],
+    "description": "Ideal para interiores modernos",
+    "colors": [
+      "#fafafa",
+      "#a5a19a",
+      "#62615e"
+    ],
+    "photo": [
+      256,
+      386,
+      192,
+      141
+    ]
+  },
+  {
+    "category": "accesorios",
+    "id": "mdf-roble",
+    "colorFamilies": [
+      "Arena",
+      "Roble"
+    ],
+    "name": "Zócalo MDF Roble",
+    "material": "MDF",
+    "finish": "Melamínico",
+    "height": 80,
+    "usage": [
+      "Hogar",
+      "Oficina"
+    ],
+    "description": "Gran resistencia y fácil limpieza",
+    "colors": [
+      "#cfaa70",
+      "#b77e38",
+      "#8b531c"
+    ],
+    "photo": [
+      469,
+      386,
+      192,
+      141
+    ]
+  },
+  {
+    "category": "accesorios",
+    "id": "madera-cedro",
+    "colorFamilies": [
+      "Nogal",
+      "Canela"
+    ],
+    "name": "Zócalo de Madera Cedro",
+    "material": "Madera",
+    "finish": "Natural",
+    "height": 70,
+    "usage": [
+      "Hogar",
+      "Comercial"
+    ],
+    "description": "Realza la calidez de tus espacios",
+    "colors": [
+      "#c7813f",
+      "#79401b",
+      "#b99161"
+    ],
+    "photo": [
+      682,
+      386,
+      192,
+      141
+    ]
+  },
+  {
+    "category": "accesorios",
+    "id": "spc-gris",
+    "colorFamilies": [
+      "Gris"
+    ],
+    "name": "Rodón SPC Gris",
+    "material": "SPC / Rodón",
+    "finish": "Texturizado",
+    "height": 60,
+    "usage": [
+      "Oficina",
+      "Alto tránsito"
+    ],
+    "description": "Ideal para alto tránsito",
+    "colors": [
+      "#b2b1ad",
+      "#8b8985",
+      "#5b5a57"
+    ],
+    "photo": [
+      256,
+      691,
+      192,
+      143
+    ]
+  },
+  {
+    "category": "accesorios",
+    "id": "mdf-gris",
+    "colorFamilies": [
+      "Gris"
+    ],
+    "name": "Zócalo MDF Gris Claro",
+    "material": "MDF",
+    "finish": "Liso",
+    "height": 80,
+    "usage": [
+      "Hogar",
+      "Oficina"
+    ],
+    "description": "Diseño minimalista",
+    "colors": [
+      "#c1bcb1",
+      "#969089",
+      "#53514e"
+    ],
+    "photo": [
+      469,
+      691,
+      192,
+      143
+    ]
+  },
+  {
+    "category": "accesorios",
+    "id": "madera-nogal",
+    "colorFamilies": [
+      "Nogal",
+      "Canela"
+    ],
+    "name": "Zócalo de Madera Nogal",
+    "material": "Madera",
+    "finish": "Natural",
+    "height": 70,
+    "usage": [
+      "Hogar",
+      "Comercial"
+    ],
+    "description": "Estilo clásico y elegante",
+    "colors": [
+      "#aa6028",
+      "#713a17",
+      "#865030"
+    ],
+    "photo": [
+      682,
+      691,
+      192,
+      143
+    ]
+  },
+  {
+    "category": "accesorios",
+    "id": "mdf-canela",
+    "colorFamilies": [
+      "Canela",
+      "Roble"
+    ],
+    "name": "Zócalo MDF Canela",
+    "material": "MDF",
+    "finish": "Melamínico",
+    "height": 80,
+    "usage": [
+      "Hogar",
+      "Comercial"
+    ],
+    "description": "Tono cálido y moderno",
+    "colors": [
+      "#c49c6b",
+      "#a56c32",
+      "#754525"
+    ],
+    "photo": [
+      256,
+      1000,
+      192,
+      142
+    ]
+  },
+  {
+    "category": "accesorios",
+    "id": "madera-natural",
+    "colorFamilies": [
+      "Arena",
+      "Roble"
+    ],
+    "name": "Zócalo Madera Natural",
+    "material": "Madera",
+    "finish": "Natural",
+    "height": 80,
+    "usage": [
+      "Hogar"
+    ],
+    "description": "Ideal para ambientes rústicos y cálidos",
+    "colors": [
+      "#d6b07a",
+      "#b47c45",
+      "#88512c"
+    ],
+    "photo": [
+      469,
+      1000,
+      192,
+      142
+    ]
+  },
+  {
+    "category": "accesorios",
+    "id": "spc-arena",
+    "colorFamilies": [
+      "Arena",
+      "Roble"
+    ],
+    "name": "Rodón SPC Arena",
+    "material": "SPC / Rodón",
+    "finish": "Texturizado",
+    "height": 60,
+    "usage": [
+      "Hogar",
+      "Alto tránsito"
+    ],
+    "description": "Moderno y versátil",
+    "colors": [
+      "#d2b99a",
+      "#b99d7d",
+      "#9b836a"
+    ],
+    "photo": [
+      682,
+      1000,
+      192,
+      142
+    ]
+  }
+]

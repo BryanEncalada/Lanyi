@@ -23,10 +23,10 @@
   aspect-ratio: 1.88;
   overflow: hidden;
   background: #bc9064;
-  app-reference-photo {
+  app-product-photo {
     transition: transform 0.25s;
   }
-  &:hover app-reference-photo {
+  &:hover app-product-photo {
     transform: scale(1.04);
   }
 }
@@ -60,7 +60,7 @@
   color: #938c82;
   margin: 12px 0 0;
 }
-.detail-dialog app-reference-photo {
+.detail-dialog app-product-photo {
   height: auto;
   aspect-ratio: 1.9;
 }

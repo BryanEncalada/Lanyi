@@ -1,20 +1,26 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { FLOORS } from '../../../../shared/data/floors';
+import { CatalogService } from '../../../../shared/services/catalog.service';
+import { Product } from '../../../../shared/data/products';
 import { quotationUrl } from '../../../../shared/data/products';
-import { ReferencePhoto } from '../../../../shared/components/reference-photo/reference-photo';
+import { ProductPhoto } from '../../../../shared/components/product-photo/product-photo';
 import { Icon } from '../../../../shared/components/icon/icon';
 @Component({
   selector: 'app-featured-products',
-  imports: [RouterLink, ReferencePhoto, Icon],
+  imports: [RouterLink, ProductPhoto, Icon],
   templateUrl: './featured-products.html',
   styleUrl: './featured-products.scss',
 })
 export class FeaturedProducts {
-  readonly products = FLOORS;
-  readonly selected = signal<(typeof FLOORS)[number] | null>(null);
+  private readonly catalog = inject(CatalogService);
+  readonly products = computed(() => {
+    const floors = this.catalog.floors();
+    const featured = floors.filter((p) => p.featured);
+    return (featured.length ? featured : floors).slice(0, 4);
+  });
+  readonly selected = signal<Product | null>(null);
   readonly quotationUrl = quotationUrl;
-  open(product: (typeof FLOORS)[number], dialog: HTMLDialogElement) {
+  open(product: Product, dialog: HTMLDialogElement) {
     this.selected.set(product);
     dialog.showModal();
   }

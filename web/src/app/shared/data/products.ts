@@ -1,5 +1,12 @@
 export interface Product {
   id: string;
+  sku?: string;
+  categoryId?: number;
+  subcategory?: string;
+  imageUrl?: string;
+  gallery?: string[];
+  featured?: boolean;
+  technical?: Record<string,string>;
   name: string;
   material: string;
   finish: string;

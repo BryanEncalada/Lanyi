@@ -8,7 +8,7 @@
       <a class="text-link" routerLink="/pisos">Ver todos los pisos <app-icon name="arrow" /></a>
     </div>
     <div class="products-grid">
-      @for (product of products; track product.id) {
+      @for (product of products(); track product.id) {
         <article class="floor-card">
           <button
             class="floor-image"
@@ -16,13 +16,15 @@
             (click)="open(product, detail)"
             [attr.aria-label]="'Ver detalles de ' + product.name"
           >
-            <app-reference-photo [rect]="product.photo" [alt]="product.name" />
+            <app-product-photo [product]="product" />
           </button>
           <div class="floor-content">
             <h3>{{ product.name }}</h3>
             <p>{{ product.spec }}</p>
-            <strong>S/ {{ product.price }} m²</strong
-            ><button type="button" class="btn btn-primary" (click)="open(product, detail)">
+            @if (product.price) {
+              <strong>S/ {{ product.price }} m²</strong>
+            }
+            <button type="button" class="btn btn-primary" (click)="open(product, detail)">
               Ver detalles <app-icon name="arrow" />
             </button>
           </div>
@@ -43,14 +45,16 @@
       aria-label="Cerrar detalles"
     >
       ×</button
-    ><app-reference-photo [rect]="product.photo" [alt]="product.name" />
+    ><app-product-photo [product]="product" />
     <div class="dialog-body">
       <p class="section-label">Pisos Lanyi</p>
       <h2>{{ product.name }}</h2>
       <p>{{ product.description }}</p>
       <p>{{ product.spec }}</p>
-      <strong>Precio referencial: S/ {{ product.price }} por m²</strong
-      ><a
+      @if (product.price) {
+        <strong>Precio referencial: S/ {{ product.price }} por m²</strong>
+      }
+      <a
         class="btn btn-whatsapp"
         [href]="quotationUrl(product.name)"
         target="_blank"

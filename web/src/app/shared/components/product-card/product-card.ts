@@ -1,23 +1,24 @@
 import { Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Product, quotationUrl } from '../../data/products';
-import { ReferencePhoto } from '../reference-photo/reference-photo';
+import { ProductPhoto } from '../product-photo/product-photo';
 import { Icon } from '../icon/icon';
 @Component({
   selector: 'app-product-card',
-  imports: [ReferencePhoto, Icon, RouterLink],
+  imports: [ProductPhoto, Icon, RouterLink],
   template: `<article class="product-card">
     <div class="product-image">
-      <app-reference-photo
-        [source]="source() ?? product().photoSource ?? 'catalog'"
-        [rect]="product().photo"
-        [alt]="product().name"
-      />
+      <app-product-photo [product]="product()" />
     </div>
     <div class="product-content">
       <h3>{{ product().name }}</h3>
       <p>
-        {{ product().spec || product().height + ' mm | Acabado ' + product().finish.toLowerCase() }}
+        {{
+          product().spec ||
+            (product().height ? product().height + ' mm | ' : '') +
+              'Acabado ' +
+              product().finish.toLowerCase()
+        }}
       </p>
       <p>{{ product().description }}</p>
       @if (product().price) {
@@ -35,7 +36,7 @@ import { Icon } from '../icon/icon';
         ><app-icon name="document" /> Solicitar cotización</a
       >
     </div>
-  </article>`,
+  </article> `,
   styleUrl: './product-card.scss',
 })
 export class ProductCard {

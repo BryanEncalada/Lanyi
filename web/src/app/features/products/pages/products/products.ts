@@ -1,8 +1,8 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { PRODUCTS } from '../../../../shared/data/products';
-import { FLOOR_CATALOG } from '../../../../shared/data/floors';
+import { CatalogService } from '../../../../shared/services/catalog.service';
+
 import { ProductCard } from '../../../../shared/components/product-card/product-card';
 import { ReferencePhoto } from '../../../../shared/components/reference-photo/reference-photo';
 import { Icon } from '../../../../shared/components/icon/icon';
@@ -26,7 +26,10 @@ export class Products {
       ? 'Encuentra el piso ideal para transformar tus espacios. Descubre nuestros pisos laminados, de madera y bambú, con tonos y texturas que dan calidez a cada ambiente.'
       : 'Los detalles que completan tus espacios. Encuentra zócalos y rodones en nuestra categoría de Accesorios, con diseños y acabados para acompañar tus pisos.',
   );
-  readonly catalogProducts = computed(() => (this.isFloors() ? FLOOR_CATALOG : PRODUCTS));
+  readonly catalog = inject(CatalogService);
+  readonly catalogProducts = computed(() =>
+    this.isFloors() ? this.catalog.floors() : this.catalog.accessories(),
+  );
   readonly filters = signal<Record<string, string[]>>({});
   readonly sort = signal('popular');
   readonly mobileFilters = signal(false);
@@ -37,6 +40,18 @@ export class Products {
       .sort((a, b) => a - b)
       .map(String);
     return [
+      ...(this.catalog.categories().length
+        ? [
+            {
+              key: 'subcategory',
+              title: 'Categoría',
+              options: this.catalog
+                .categories()
+                .filter((c) => c.kind === (this.isFloors() ? 'pisos' : 'accesorios'))
+                .map((c) => c.name),
+            },
+          ]
+        : []),
       {
         key: 'material',
         title: this.isFloors() ? 'Tipo de piso' : 'Tipo de accesorio',
@@ -77,6 +92,7 @@ export class Products {
       if (this.preset() && p.material !== this.preset()) return false;
       return Object.entries(filters).every(([key, values]) => {
         if (!values.length) return true;
+        if (key === 'subcategory') return values.includes(p.subcategory ?? '');
         if (key === 'usage') return values.some((v) => p.usage.includes(v));
         if (key === 'height') return values.includes(String(p.height));
         if (key === 'color') return values.some((v) => p.colorFamilies.includes(v));
