@@ -56,7 +56,8 @@ h2 {
   border-radius: 6px;
   overflow: hidden;
   scroll-snap-align: start;
-  button {
+  a {
+    display: block;
     width: 100%;
     padding: 0;
     border: 0;
@@ -68,11 +69,11 @@ h2 {
   .project-image {
     aspect-ratio: 1.25;
     overflow: hidden;
-    app-reference-photo {
+    app-content-photo {
       transition: transform 0.25s;
     }
   }
-  button:hover app-reference-photo {
+  a:hover app-content-photo {
     transform: scale(1.04);
   }
 }
@@ -110,7 +111,7 @@ h2 {
 .next {
   right: -15px;
 }
-.detail-dialog app-reference-photo {
+.detail-dialog app-content-photo {
   height: auto;
   aspect-ratio: 1.4;
 }

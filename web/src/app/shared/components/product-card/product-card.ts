@@ -22,7 +22,10 @@ import { Icon } from '../icon/icon';
       </p>
       <p>{{ product().description }}</p>
       @if (product().price) {
-        <strong class="product-price">S/ {{ product().price }} m²</strong>
+        <strong class="product-price"
+          >S/ {{ product().price }} /
+          {{ product().category === 'accesorios' ? 'm lineal' : 'm²' }}</strong
+        >
       }
       <div class="swatches" aria-label="Colores disponibles">
         @for (color of product().colors; track color) {

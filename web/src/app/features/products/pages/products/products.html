@@ -97,6 +97,31 @@
     </div>
   </aside>
   <div class="catalog-main">
+    <label class="catalog-search"
+      ><app-icon name="search" /><span class="visually-hidden"
+        >Buscar productos por nombre o SKU</span
+      ><input
+        type="search"
+        placeholder="Buscar por nombre o SKU…"
+        [value]="search()"
+        (input)="search.set($any($event.target).value)"
+        aria-label="Buscar productos por nombre o SKU"
+    /></label>
+    @if (catalog.loading()) {
+      <p class="catalog-status" role="status">Cargando catálogo…</p>
+    } @else if (hasError()) {
+      <div class="catalog-status error" role="alert">
+        <p>
+          No pudimos conectar con el catálogo actualizado.
+          {{
+            catalogProducts().length
+              ? 'Mostramos productos de referencia; confirma disponibilidad al cotizar.'
+              : 'Intenta nuevamente o escríbenos por WhatsApp.'
+          }}
+        </p>
+        <button type="button" class="text-link" (click)="retry()">Volver a intentar</button>
+      </div>
+    }
     <div class="catalog-toolbar">
       <p aria-live="polite">
         {{ results().length }} {{ results().length === 1 ? 'resultado' : 'resultados' }}
@@ -104,16 +129,16 @@
       <label for="product-sort"
         >Ordenar por:
         <select id="product-sort" [value]="sort()" (change)="sort.set($any($event.target).value)">
-          <option value="popular">Más populares</option>
+          <option value="popular">Recomendados</option>
           <option value="name">Nombre: A a Z</option>
           <option value="height-asc">Menor {{ isFloors() ? 'espesor' : 'altura' }}</option>
           <option value="height-desc">Mayor {{ isFloors() ? 'espesor' : 'altura' }}</option>
         </select></label
       >
     </div>
-    @if (preset()) {
+    @if (preset() || categorySlug()) {
       <p class="preset-note">
-        Mostrando: {{ preset() }}.
+        Mostrando: {{ categoryLabel() || preset() }}.
         <a [routerLink]="catalogPath()" (click)="clear()"
           >Ver todos los {{ categoryName().toLowerCase() }}</a
         >
@@ -124,7 +149,7 @@
         <app-product-card [product]="product" />
       }
     </div>
-    @if (!results().length) {
+    @if (!results().length && !catalog.loading() && !hasError()) {
       <div class="empty-state">
         <app-icon name="chat" />
         <h2>No encontramos esa combinación</h2>
@@ -134,9 +159,6 @@
         >
       </div>
     }
-    <p class="catalog-note">
-      Catálogo de muestra basado en la referencia. Consulta disponibilidad y especificaciones al
-      cotizar.
-    </p>
+    <p class="catalog-note">Consulta disponibilidad y especificaciones al cotizar.</p>
   </div>
 </section>

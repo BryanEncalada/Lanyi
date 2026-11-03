@@ -1,32 +1,81 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { Title } from '@angular/platform-browser';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { BLOG_ARTICLES, BLOG_LIST, BLOG_RECOMMENDATIONS } from '../../../shared/data/blog';
-import { ReferencePhoto } from '../../../shared/components/reference-photo/reference-photo';
+import { ContentService } from '../../../shared/services/content.service';
+import { SeoService } from '../../../shared/services/seo.service';
+import { ContentPhoto } from '../../../shared/components/content-photo/content-photo';
 import { Icon } from '../../../shared/components/icon/icon';
-@Component({selector: 'app-article', imports: [RouterLink, ReferencePhoto, Icon], templateUrl: './article.html', styleUrl: './article.scss'})
+import { editorialBlocks } from '../../../shared/data/editorial-utils';
+import { quotationUrl } from '../../../shared/data/products';
+@Component({
+  selector: 'app-article',
+  imports: [RouterLink, ContentPhoto, Icon],
+  templateUrl: './article.html',
+  styleUrl: './article.scss',
+})
 export class Article {
   private readonly route = inject(ActivatedRoute);
-  private readonly title = inject(Title);
-  private readonly params = toSignal(this.route.paramMap, { initialValue: this.route.snapshot.paramMap });
-  readonly all = [...BLOG_LIST, ...BLOG_RECOMMENDATIONS];
-  readonly post = computed(() => this.all.find(p => p.slug === this.params().get('slug')));
-  readonly related = computed(() => this.all.filter(p => p.slug !== this.post()?.slug).slice(0,3));
-  readonly paragraphs = computed(() => BLOG_ARTICLES[this.post()?.slug ?? ''] ?? [this.post()?.description ?? '']);
-  readonly isGuide = computed(() => this.post()?.slug === 'como-elegir-el-piso-ideal');
+  private readonly params = toSignal(this.route.paramMap, {
+    initialValue: this.route.snapshot.paramMap,
+  });
+  private readonly data = toSignal(this.route.data, { initialValue: this.route.snapshot.data });
+  readonly content = inject(ContentService);
+  private readonly seo = inject(SeoService);
+  readonly kind = computed((): 'blog' | 'proyectos' =>
+    this.data()['kind'] === 'proyectos' ? 'proyectos' : 'blog',
+  );
+  readonly all = computed(() =>
+    this.kind() === 'blog' ? this.content.articles() : this.content.projects(),
+  );
+  readonly post = computed(() => this.all().find((p) => p.slug === this.params().get('slug')));
+  readonly related = computed(() =>
+    this.all()
+      .filter((p) => p.slug !== this.post()?.slug)
+      .slice(0, 3),
+  );
+  readonly blocks = computed(() => editorialBlocks(this.post()?.body ?? ''));
+  readonly gallery = computed(() => [
+    ...new Set(
+      [this.post()?.imageUrl, ...(this.post()?.gallery ?? [])].filter((p): p is string => !!p),
+    ),
+  ]);
+  readonly activeImage = signal<string | undefined>(undefined);
   readonly copyStatus = signal('');
-  readonly floorTypes = [
-    {name: 'Piso laminado', text: 'Versátil, moderno y de fácil mantenimiento.', type: 'Laminado', photo: [476,1259,202,63]},
-    {name: 'Piso de madera', text: 'Elegancia natural y durabilidad.', type: 'Madera', photo: [259,1259,203,63]},
-    {name: 'Piso de bambú', text: 'Una opción cálida y resistente.', type: 'Bambú', photo: [367,685,150,77]},
-  ];
-  constructor() { effect(() => { this.title.setTitle((this.post()?.title ?? 'Publicación no encontrada') + ' | Lanyi Pisos'); this.copyStatus.set(''); }); }
+  readonly quote = quotationUrl;
+  constructor() {
+    effect(() => {
+      const p = this.post();
+      this.seo.navigation();
+      this.activeImage.set(undefined);
+      this.seo.set(
+        p
+          ? {
+              title: (p.seoTitle || p.title) + ' | Lanyi Pisos',
+              description: p.seoDescription || p.description,
+              image: p.imageUrl,
+              path: '/' + this.kind() + '/' + p.slug,
+              type: this.kind() === 'blog' ? 'article' : 'website',
+            }
+          : {
+              title: 'Contenido no encontrado | Lanyi Pisos',
+              description: 'Consulta nuestras publicaciones y proyectos.',
+              noindex: this.content.status()[this.kind()] !== 'loading',
+            },
+      );
+    });
+  }
   shareUrl(service: string) {
     const url = encodeURIComponent(window.location.href);
     if (service === 'facebook') return 'https://www.facebook.com/sharer/sharer.php?u=' + url;
     if (service === 'linkedin') return 'https://www.linkedin.com/sharing/share-offsite/?url=' + url;
     return 'https://wa.me/?text=' + encodeURIComponent(this.post()?.title ?? '') + '%20' + url;
   }
-  async copyLink() { try { await navigator.clipboard.writeText(window.location.href); this.copyStatus.set('Enlace copiado'); } catch { this.copyStatus.set('Puedes copiar el enlace desde la barra del navegador.'); } }
+  async copyLink() {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      this.copyStatus.set('Enlace copiado');
+    } catch {
+      this.copyStatus.set('Copia la dirección desde tu navegador.');
+    }
+  }
 }

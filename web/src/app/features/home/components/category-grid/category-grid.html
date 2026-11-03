@@ -3,6 +3,7 @@
     @for (category of categories; track category.slug) {
       <a
         class="category-card"
+        [queryParams]="query(category.slug)"
         [routerLink]="
           category.slug === 'zocalos' || category.slug === 'accesorios' ? '/accesorios' : '/pisos'
         "

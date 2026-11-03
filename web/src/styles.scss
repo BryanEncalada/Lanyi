@@ -272,3 +272,40 @@ footer[id] {
     transition: none !important;
   }
 }
+
+/* Catálogo: búsqueda y estados */
+
+.catalog-search {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  border: 1px solid #ddd4c7;
+  border-radius: 8px;
+  background: #fff;
+}
+.catalog-search input {
+  border: 0;
+  outline-offset: 4px;
+  min-width: 0;
+  width: 100%;
+  font: inherit;
+  background: transparent;
+}
+.catalog-status {
+  padding: 16px;
+  background: #f8f2e9;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+.catalog-status.error {
+  border: 1px solid #d4b78d;
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}

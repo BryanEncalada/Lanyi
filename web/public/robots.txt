@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /seo.php
+Sitemap: https://test.lanyipisos.com/sitemap.xml

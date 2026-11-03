@@ -1,86 +1,62 @@
-<section id="proyectos" class="projects" aria-labelledby="projects-title">
-  <div class="projects-layout">
-    <div class="projects-intro">
-      <p class="section-label">Espacios que inspiran</p>
-      <h2 id="projects-title">Proyectos realizados</h2>
-      <p class="projects-description">
-        Conoce algunos de los espacios que transformamos con nuestros pisos.
-      </p>
-      <a class="btn btn-primary" routerLink="/proyectos">
-        Ver más proyectos <app-icon name="arrow" />
-      </a>
-    </div>
-    <div class="projects-carousel">
-      <button
-        class="carousel-control previous"
-        type="button"
-        aria-label="Ver proyecto anterior"
-        aria-controls="projects-track"
-        (click)="scrollProjects(projectTrack, -1)"
-      >
-        ‹
-      </button>
-      <div
-        #projectTrack
-        class="projects-track"
-        id="projects-track"
-        tabindex="0"
-        role="region"
-        aria-label="Proyectos realizados"
-      >
-        @for (project of projects; track project.slug) {
-          <article class="project-card">
-            <button type="button" (click)="open(project, projectDialog)">
-              <div class="project-image">
-                <app-reference-photo [rect]="project.photo" [alt]="project.name" />
-              </div>
-              <div class="project-details">
-                <h3>{{ project.name }}</h3>
-                <p>{{ project.material }}</p>
-              </div>
-            </button>
-          </article>
-        }
+@if (projects().length) {
+  <section id="proyectos" class="projects" aria-labelledby="projects-title">
+    <div class="projects-layout">
+      <div class="projects-intro">
+        <p class="section-label">Espacios que inspiran</p>
+        <h2 id="projects-title">Proyectos realizados</h2>
+        <p class="projects-description">
+          Conoce algunos de los espacios que transformamos con nuestros pisos.
+        </p>
+        <a class="btn btn-primary" routerLink="/proyectos">
+          Ver más proyectos <app-icon name="arrow" />
+        </a>
       </div>
-      <button
-        class="carousel-control next"
-        type="button"
-        aria-label="Ver siguiente proyecto"
-        aria-controls="projects-track"
-        (click)="scrollProjects(projectTrack, 1)"
-      >
-        ›
-      </button>
+      <div class="projects-carousel">
+        <button
+          class="carousel-control previous"
+          type="button"
+          aria-label="Ver proyecto anterior"
+          aria-controls="projects-track"
+          (click)="scrollProjects(projectTrack, -1)"
+        >
+          ‹
+        </button>
+        <div
+          #projectTrack
+          class="projects-track"
+          id="projects-track"
+          tabindex="0"
+          role="region"
+          aria-label="Proyectos realizados"
+        >
+          @for (project of projects(); track project.slug) {
+            <article class="project-card">
+              <a [routerLink]="['/proyectos', project.slug]">
+                <div class="project-image">
+                  <app-content-photo
+                    [src]="project.imageUrl"
+                    [rect]="project.photo"
+                    [alt]="project.name"
+                  />
+                </div>
+                <div class="project-details">
+                  <h3>{{ project.name }}</h3>
+                  <p>{{ project.material }}</p>
+                </div>
+              </a>
+            </article>
+          }
+        </div>
+        <button
+          class="carousel-control next"
+          type="button"
+          aria-label="Ver siguiente proyecto"
+          aria-controls="projects-track"
+          (click)="scrollProjects(projectTrack, 1)"
+        >
+          ›
+        </button>
+      </div>
     </div>
-  </div>
-</section>
-<dialog
-  #projectDialog
-  class="detail-dialog"
-  (click)="$event.target === projectDialog && projectDialog.close()"
->
-  @if (selected(); as project) {
-    <button
-      class="dialog-close"
-      type="button"
-      (click)="projectDialog.close()"
-      aria-label="Cerrar proyecto"
-    >
-      ×</button
-    ><app-reference-photo [rect]="project.photo" [alt]="project.name" />
-    <div class="dialog-body">
-      <p class="section-label">Espacios que inspiran</p>
-      <h2>{{ project.name }}</h2>
-      <p>
-        {{ project.material }}. Una referencia de cómo nuestros acabados transforman cada espacio.
-      </p>
-      <a
-        class="btn btn-whatsapp"
-        [href]="quotationUrl(project.name)"
-        target="_blank"
-        rel="noopener noreferrer"
-        ><app-icon name="whatsapp" /> Cotiza tu proyecto</a
-      >
-    </div>
-  }
-</dialog>
+  </section>
+}

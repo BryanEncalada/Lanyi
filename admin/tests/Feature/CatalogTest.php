@@ -216,4 +216,12 @@ class CatalogTest extends TestCase
         $this->expectException(ValidationException::class);
         $a->update(['parent_id' => $b->id]);
     }
+
+    public function test_api_price_unit_matches_each_category(): void
+    {
+        $this->seed(CatalogSeeder::class);
+        $this->getJson('/api/pisos/roble-natural')->assertOk()->assertJsonPath('data.price', '69.90')->assertJsonPath('data.priceUnit', 'm2');
+        Product::where('kind', 'accesorios')->where('slug', 'mdf-blanco')->firstOrFail()->update(['price' => '12.50']);
+        $this->getJson('/api/accesorios/mdf-blanco')->assertOk()->assertJsonPath('data.price', '12.50')->assertJsonPath('data.priceUnit', 'ml');
+    }
 }

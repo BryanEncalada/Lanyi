@@ -1,11 +1,107 @@
-<section class="projects-hero"><div class="container hero-layout"><div class="hero-copy">
-  <nav aria-label="Ruta de navegación"><a routerLink="/">Inicio</a><span>/</span><span aria-current="page">Proyectos</span></nav>
-  <p class="section-label">Espacios que inspiran</p><h1>Proyectos realizados</h1><p class="hero-description">Cada espacio tiene una historia.<br>Encuentra la inspiración para transformar el tuyo.</p><a class="btn btn-primary" href="#galeria">Explorar proyectos <app-icon name="arrow" /></a>
-</div><div class="hero-photo"><app-reference-photo [rect]="projects[0].photo" alt="Interior de un departamento con piso laminado" /><div class="photo-caption"><span>Inspiración residencial</span><strong>Calidez en cada detalle</strong></div></div></div></section>
-<section id="galeria" class="section gallery container" aria-labelledby="gallery-title"><div class="section-heading"><div><p class="section-label">Nuestros espacios</p><h2 class="section-title" id="gallery-title">Un piso para cada proyecto</h2></div><p class="gallery-description">Hogares, oficinas y exteriores.<br>Explora los ambientes por tipo de piso.</p></div>
-  <div class="filter-row"><nav aria-label="Filtrar proyectos por material">@for (item of categories; track item) {<button type="button" [class.active]="category() === item" [attr.aria-pressed]="category() === item" (click)="category.set(item)">{{ item }}</button>}</nav><span class="result-count" role="status">{{ results().length }} {{ results().length === 1 ? 'proyecto' : 'proyectos' }}</span></div>
-  <div class="project-grid">@for (project of results(); track project.slug) {<article class="project-card"><button type="button" (click)="open(project, projectDialog)" [attr.aria-label]="'Ver proyecto: ' + project.name"><div class="project-photo"><app-reference-photo [rect]="project.photo" [alt]="project.name" /><span class="material">{{ project.material }}</span></div><div class="project-content"><div><p>{{ project.slug === 'oficina-corporativa' ? 'Espacio de trabajo' : project.slug === 'terraza-exterior' ? 'Exterior' : 'Residencial' }}</p><h3>{{ project.name }}</h3></div><span class="view-project"><span>Ver proyecto</span><app-icon name="arrow" /></span></div></button></article>}</div>
-  <p class="reference-note">Galería referencial de la propuesta visual.</p>
+<section class="projects-hero">
+  <div class="container hero-layout">
+    <div class="hero-copy">
+      <nav aria-label="Ruta de navegación">
+        <a routerLink="/">Inicio</a><span>/</span><span aria-current="page">Proyectos</span>
+      </nav>
+      <p class="section-label">Espacios que inspiran</p>
+      <h1>Proyectos realizados</h1>
+      <p class="hero-description">
+        Cada espacio tiene una historia.<br />Encuentra la inspiración para transformar el tuyo.
+      </p>
+      <a class="btn btn-primary" routerLink="/proyectos" fragment="galeria"
+        >Explorar proyectos <app-icon name="arrow"
+      /></a>
+    </div>
+    <div class="hero-photo">
+      <app-content-photo
+        [src]="projects()[0]?.imageUrl"
+        [rect]="projects()[0]?.photo ?? []"
+        alt="Ambiente con pisos Lanyi"
+      />
+      <div class="photo-caption">
+        <span>Inspiración residencial</span><strong>Calidez en cada detalle</strong>
+      </div>
+    </div>
+  </div>
 </section>
-<section class="project-cta container"><div><p class="section-label">Hagamos realidad tu idea</p><h2>Tu espacio puede ser el próximo</h2><p>Te ayudamos a elegir el piso que acompañe tu estilo y las necesidades de tu proyecto.</p></div><a class="btn btn-primary" [href]="quote('mi proyecto')" target="_blank" rel="noopener noreferrer"><app-icon name="whatsapp" /> Cuéntanos tu proyecto</a></section>
-<dialog #projectDialog class="detail-dialog" [attr.aria-label]="selected()?.name" (click)="$event.target === projectDialog && projectDialog.close()">@if (selected(); as project) {<button type="button" class="dialog-close" aria-label="Cerrar proyecto" (click)="projectDialog.close()">×</button><div class="dialog-photo"><app-reference-photo [rect]="project.photo" [alt]="project.name" /></div><div class="dialog-body"><p class="section-label">{{ project.material }}</p><h2>{{ project.name }}</h2><p>Un ambiente de referencia para descubrir cómo los tonos y texturas de {{ project.material.toLowerCase() }} acompañan el espacio.</p><p>Consulta con nuestro equipo las opciones disponibles para conseguir un acabado similar en tu proyecto.</p><a class="btn btn-primary" [href]="quote('un proyecto similar a ' + project.name)" target="_blank" rel="noopener noreferrer"><app-icon name="whatsapp" /> Quiero un proyecto similar</a></div>}</dialog>
+<section id="galeria" class="section gallery container" aria-labelledby="gallery-title">
+  <div class="section-heading">
+    <div>
+      <p class="section-label">Nuestros espacios</p>
+      <h2 class="section-title" id="gallery-title">Un piso para cada proyecto</h2>
+    </div>
+    <p class="gallery-description">
+      Hogares, oficinas y exteriores.<br />Explora los ambientes por tipo de piso.
+    </p>
+  </div>
+  <div class="filter-row">
+    <nav aria-label="Filtrar proyectos por material">
+      @for (item of categories(); track item) {
+        <button
+          type="button"
+          [class.active]="category() === item"
+          [attr.aria-pressed]="category() === item"
+          (click)="category.set(item)"
+        >
+          {{ item }}
+        </button>
+      }
+    </nav>
+    <span class="result-count" role="status"
+      >{{ results().length }} {{ results().length === 1 ? 'proyecto' : 'proyectos' }}</span
+    >
+  </div>
+  <div class="project-grid">
+    @for (project of results(); track project.slug) {
+      <article class="project-card">
+        <a
+          [routerLink]="['/proyectos', project.slug]"
+          [attr.aria-label]="'Ver proyecto: ' + project.name"
+          ><div class="project-photo">
+            <app-content-photo
+              [src]="project.imageUrl"
+              [rect]="project.photo"
+              [alt]="project.name"
+            /><span class="material">{{ project.material }}</span>
+          </div>
+          <div class="project-content">
+            <div>
+              <p>
+                {{
+                  project.slug === 'oficina-corporativa'
+                    ? 'Espacio de trabajo'
+                    : project.slug === 'terraza-exterior'
+                      ? 'Exterior'
+                      : 'Residencial'
+                }}
+              </p>
+              <h3>{{ project.name }}</h3>
+            </div>
+            <span class="view-project"
+              ><span>Ver proyecto</span><app-icon name="arrow"
+            /></span></div
+        ></a>
+      </article>
+    }
+  </div>
+  @if (content.status()['proyectos'] === 'preview') {
+    <p class="reference-note">Galería referencial de la propuesta visual.</p>
+  } @else if (content.status()['proyectos'] === 'loading') {
+    <p role="status">Cargando proyectos…</p>
+  } @else if (content.status()['proyectos'] === 'error') {
+    <p role="alert">No pudimos cargar los proyectos. Intenta nuevamente más tarde.</p>
+  } @else if (!results().length) {
+    <p>No hay proyectos publicados en esta categoría.</p>
+  }
+</section>
+<section class="project-cta container">
+  <div>
+    <p class="section-label">Hagamos realidad tu idea</p>
+    <h2>Tu espacio puede ser el próximo</h2>
+    <p>Te ayudamos a elegir el piso que acompañe tu estilo y las necesidades de tu proyecto.</p>
+  </div>
+  <a class="btn btn-primary" [href]="quote('mi proyecto')" target="_blank" rel="noopener noreferrer"
+    ><app-icon name="whatsapp" /> Cuéntanos tu proyecto</a
+  >
+</section>

@@ -19,7 +19,13 @@
     >
       ☰
     </button>
-    <nav id="main-navigation" class="navigation" [class.open]="menuOpen()" aria-label="Principal">
+    <nav
+      (focusout)="closeOnFocusLeave($event)"
+      id="main-navigation"
+      class="navigation"
+      [class.open]="menuOpen()"
+      aria-label="Principal"
+    >
       <a
         routerLink="/"
         routerLinkActive="active"
@@ -28,15 +34,49 @@
         >Inicio</a
       >
       <a routerLink="/nosotros" routerLinkActive="active" (click)="closeMenu()">Nosotros</a>
-      <a routerLink="/pisos" routerLinkActive="active" (click)="closeMenu()"
-        >Pisos <span>⌄</span></a
-      >
-      <a routerLink="/accesorios" routerLinkActive="active" (click)="closeMenu()"
-        >Accesorios <span>⌄</span></a
-      >
+      @for (section of sections; track section.kind) {
+        <div class="nav-dropdown" [class.expanded]="expanded() === section.kind">
+          <div class="nav-category">
+            <a [routerLink]="['/', section.kind]" routerLinkActive="active" (click)="closeMenu()">{{
+              section.label
+            }}</a>
+            <button
+              class="submenu-toggle"
+              type="button"
+              [attr.data-toggle]="section.kind"
+              [attr.aria-label]="'Categorías de ' + section.label"
+              [attr.aria-expanded]="expanded() === section.kind"
+              [attr.aria-controls]="'submenu-' + section.kind"
+              (click)="toggleSubmenu(section.kind)"
+            >
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="m4 6 4 4 4-4" /></svg>
+            </button>
+          </div>
+          <div
+            class="submenu"
+            [id]="'submenu-' + section.kind"
+            [hidden]="expanded() !== section.kind"
+          >
+            <a class="all-products" [routerLink]="['/', section.kind]" (click)="closeMenu()"
+              >Ver todos los {{ section.label.toLowerCase() }}</a
+            >
+            @for (
+              link of links()[section.kind];
+              track link.query['categoria'] || link.query['tipo']
+            ) {
+              <a
+                [routerLink]="['/', section.kind]"
+                [queryParams]="link.query"
+                (click)="closeMenu()"
+                >{{ link.label }}</a
+              >
+            }
+          </div>
+        </div>
+      }
       <a routerLink="/proyectos" (click)="closeMenu()">Proyectos</a>
       <a routerLink="/blog" (click)="closeMenu()">Blog</a>
-      <a routerLink="/" fragment="contacto" (click)="closeMenu()">Contacto</a>
+      <a routerLink="/contacto" (click)="closeMenu()">Contacto</a>
     </nav>
   </div>
 </header>

@@ -29,6 +29,7 @@ export class CatalogService {
   readonly floors = this.floorState.asReadonly();
   readonly accessories = this.accessoryState.asReadonly();
   readonly loading = signal(true);
+  readonly apiBaseUrl = signal<string | null>(null);
   readonly categories = signal<CatalogCategory[]>([]);
   readonly source = signal<Record<CatalogType, 'static' | 'api' | 'fallback'>>({
     pisos: 'static',
@@ -43,8 +44,11 @@ export class CatalogService {
         catchError(() => of({ apiBaseUrl: '', fallbackOnError: true })),
       )
       .subscribe((config) => {
-        const base = (config.apiBaseUrl || '').trim().replace(/\/$/, '');
+        const base = (typeof config?.apiBaseUrl === 'string' ? config.apiBaseUrl : '')
+          .trim()
+          .replace(/\/$/, '');
         if (!base) {
+          this.apiBaseUrl.set('');
           this.loading.set(false);
           return;
         }
@@ -52,9 +56,11 @@ export class CatalogService {
           const url = new URL(base, window.location.origin);
           if (!['http:', 'https:'].includes(url.protocol)) throw new Error('Invalid API protocol');
         } catch {
+          this.apiBaseUrl.set('');
           this.loading.set(false);
           return;
         }
+        this.apiBaseUrl.set(base);
         this.pending = 3;
         this.http
           .get<{ data: CatalogCategory[] }>(base + '/categorias')
@@ -64,9 +70,10 @@ export class CatalogService {
           )
           .subscribe((response) => {
             this.categories.set(
-              Array.isArray(response.data)
+              Array.isArray(response?.data)
                 ? response.data.filter(
                     (c) =>
+                      c &&
                       typeof c.id === 'number' &&
                       typeof c.name === 'string' &&
                       ['pisos', 'accesorios'].includes(c.kind),
@@ -136,6 +143,8 @@ export class CatalogService {
       id: p['id'] as string,
       name: p['name'] as string,
       category,
+      seoTitle: typeof p['seoTitle'] === 'string' ? p['seoTitle'] : undefined,
+      seoDescription: typeof p['seoDescription'] === 'string' ? p['seoDescription'] : undefined,
       sku: typeof p['sku'] === 'string' ? p['sku'] : undefined,
       description: String(p['description'] ?? ''),
       material: String(p['material'] ?? ''),

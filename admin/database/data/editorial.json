@@ -1,0 +1,185 @@
+[
+  {
+    "kind": "blog",
+    "slug": "como-elegir-el-piso-ideal",
+    "title": "¿Cómo elegir el piso ideal para tu hogar?",
+    "excerpt": "Conoce los factores más importantes a considerar antes de instalar un piso.",
+    "body": "Antes de elegir un piso, considera el uso del ambiente, la cantidad de luz natural y los tonos de tus muebles. Una muestra física te ayudará a comparar colores en tu propio espacio.\n\nConsulta la ficha técnica del fabricante para conocer las condiciones de instalación, resistencia y mantenimiento. Nuestro equipo puede orientarte según tu proyecto y presupuesto.",
+    "category": "Consejos",
+    "tags": [
+      "Consejos",
+      "Pisos Laminados"
+    ],
+    "legacy_photo": [
+      42,
+      1259,
+      203,
+      63
+    ],
+    "sort_order": 0
+  },
+  {
+    "kind": "blog",
+    "slug": "diferencias-pisos-laminados-madera-bambu",
+    "title": "Diferencias entre pisos laminados, de madera y bambú",
+    "excerpt": "Te explicamos las características, ventajas y usos de cada tipo de piso.",
+    "body": "Los pisos laminados ofrecen una amplia variedad de acabados decorativos. La madera destaca por sus vetas naturales, mientras que el bambú aporta una apariencia cálida y distintiva.\n\nLa elección depende del ambiente y de las especificaciones de cada producto. Compara muestras, mantenimiento y compatibilidad con el lugar de instalación antes de decidir.",
+    "category": "Comparativas",
+    "tags": [
+      "Pisos Laminados",
+      "Madera",
+      "Bambú"
+    ],
+    "legacy_photo": [
+      259,
+      1259,
+      203,
+      63
+    ],
+    "sort_order": 1
+  },
+  {
+    "kind": "blog",
+    "slug": "zocalos-el-detalle-que-hace-la-diferencia",
+    "title": "Zócalos: el detalle que hace la diferencia",
+    "excerpt": "Descubre cómo los zócalos complementan y protegen tus espacios.",
+    "body": "Los zócalos acompañan el encuentro entre la pared y el piso y ayudan a proteger la parte inferior del muro. Su altura, tono y acabado influyen en el resultado visual del ambiente.\n\nPuedes elegir un color similar al piso para dar continuidad, o un tono que combine con las paredes. Revisa las condiciones de humedad y las instrucciones de instalación de cada material.",
+    "category": "Zócalos",
+    "tags": [
+      "Zócalos"
+    ],
+    "legacy_photo": [
+      476,
+      1259,
+      202,
+      63
+    ],
+    "sort_order": 2
+  },
+  {
+    "kind": "blog",
+    "slug": "errores-comunes-al-instalar",
+    "title": "Errores comunes al instalar un piso (y cómo evitarlos)",
+    "excerpt": "Conoce los errores más frecuentes y nuestros consejos para una instalación exitosa.",
+    "body": "Conoce los errores más frecuentes y nuestros consejos para una instalación exitosa.",
+    "category": "Instalación",
+    "tags": [
+      "Instalación"
+    ],
+    "legacy_photo": [
+      259,
+      1259,
+      203,
+      63
+    ],
+    "sort_order": 3
+  },
+  {
+    "kind": "blog",
+    "slug": "tendencias",
+    "title": "Tendencias en pisos para 2026",
+    "excerpt": "Tonos naturales y acabados que aportan calidez a tus espacios.",
+    "body": "Tonos naturales y acabados que aportan calidez a tus espacios.",
+    "category": "Diseño de interiores",
+    "tags": [],
+    "legacy_photo": [
+      42,
+      1259,
+      203,
+      63
+    ],
+    "sort_order": 4
+  },
+  {
+    "kind": "blog",
+    "slug": "terrazas",
+    "title": "Pisos para terrazas y exteriores: qué materiales elegir",
+    "excerpt": "Consulta materiales aptos para las condiciones de tu terraza antes de elegir.",
+    "body": "Consulta materiales aptos para las condiciones de tu terraza antes de elegir.",
+    "category": "Exteriores",
+    "tags": [],
+    "legacy_photo": [
+      259,
+      1259,
+      203,
+      63
+    ],
+    "sort_order": 5
+  },
+  {
+    "kind": "blog",
+    "slug": "mantenimiento",
+    "title": "Cómo mantener tu piso como nuevo por más tiempo",
+    "excerpt": "Sigue las instrucciones de limpieza del fabricante y utiliza productos compatibles con tu piso.",
+    "body": "Sigue las instrucciones de limpieza del fabricante y utiliza productos compatibles con tu piso.",
+    "category": "Mantenimiento",
+    "tags": [],
+    "legacy_photo": [
+      476,
+      1259,
+      202,
+      63
+    ],
+    "sort_order": 6
+  },
+  {
+    "kind": "proyectos",
+    "slug": "departamento-san-isidro",
+    "title": "Departamento en San Isidro",
+    "excerpt": "Ambiente referencial. Sustituir por un proyecto real antes de publicar.",
+    "body": "Contenido de referencia para editar. Añade aquí la descripción y las fotografías de un proyecto real.",
+    "material": "Piso laminado",
+    "legacy_photo": [
+      223,
+      420,
+      112,
+      88
+    ],
+    "sort_order": 0
+  },
+  {
+    "kind": "proyectos",
+    "slug": "oficina-corporativa",
+    "title": "Oficina corporativa",
+    "excerpt": "Ambiente referencial. Sustituir por un proyecto real antes de publicar.",
+    "body": "Contenido de referencia para editar. Añade aquí la descripción y las fotografías de un proyecto real.",
+    "material": "Piso de madera",
+    "legacy_photo": [
+      343,
+      420,
+      111,
+      88
+    ],
+    "sort_order": 1
+  },
+  {
+    "kind": "proyectos",
+    "slug": "casa-la-molina",
+    "title": "Casa en La Molina",
+    "excerpt": "Ambiente referencial. Sustituir por un proyecto real antes de publicar.",
+    "body": "Contenido de referencia para editar. Añade aquí la descripción y las fotografías de un proyecto real.",
+    "material": "Piso de bambú",
+    "legacy_photo": [
+      462,
+      420,
+      111,
+      88
+    ],
+    "sort_order": 2
+  },
+  {
+    "kind": "proyectos",
+    "slug": "terraza-exterior",
+    "title": "Terraza exterior",
+    "excerpt": "Ambiente referencial. Sustituir por un proyecto real antes de publicar.",
+    "body": "Contenido de referencia para editar. Añade aquí la descripción y las fotografías de un proyecto real.",
+    "material": "Deck WPC",
+    "legacy_photo": [
+      581,
+      420,
+      111,
+      88
+    ],
+    "sort_order": 3
+  }
+]

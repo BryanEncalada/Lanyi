@@ -1,3 +1,4 @@
+import { categoryQuery } from '../../../../shared/data/catalog-utils';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ReferencePhoto } from '../../../../shared/components/reference-photo/reference-photo';
@@ -9,6 +10,7 @@ import { Icon } from '../../../../shared/components/icon/icon';
   styleUrl: './category-grid.scss',
 })
 export class CategoryGrid {
+  readonly query = categoryQuery;
   readonly categories = [
     { name: 'Pisos Laminados', slug: 'laminados', photo: [18, 320, 104, 58] },
     { name: 'Pisos de Madera', slug: 'madera', photo: [133, 320, 106, 58] },

@@ -1,0 +1,61 @@
+{
+  "siteName": "Lanyi Pisos",
+  "productionOrigin": "https://lanyipisos.com",
+  "indexableHosts": ["lanyipisos.com", "www.lanyipisos.com"],
+  "defaultDescription": "Especialistas en pisos de madera, pisos laminados, pisos estructurados, pisos de bambú y decks en Lima, Perú.",
+  "defaultImage": "/images/hero/hero01.jpeg",
+  "organization": {
+    "name": "Lanyi Pisos",
+    "url": "https://lanyipisos.com/",
+    "logo": "https://lanyipisos.com/wp-content/uploads/2017/06/LOGO-LANYI-FINAL.png",
+    "sameAs": ["https://www.facebook.com/people/LANYI-PISOS/100063754831528/"]
+  },
+  "analytics": {
+    "enabled": true,
+    "allowedHosts": ["lanyipisos.com", "www.lanyipisos.com"],
+    "gtmId": "GTM-5F89S78G",
+    "measurementId": "G-S3DQSC43NL"
+  },
+  "pages": {
+    "/": {
+      "title": "Lanyi Pisos | Pisos de madera, bambú y laminados",
+      "description": "Especialistas en pisos de madera, pisos laminados, pisos estructurados, pisos de bambú y decks. Asesoría e instalación en Lima, Perú."
+    },
+    "/piso-laminado": {
+      "title": "Pisos Laminados - Lanyi Pisos",
+      "description": "Le ofrecemos Pisos Laminados Flotantes ya que gracias a su sistema de doble click no requiere pegamento y poseen variedad de colores.",
+      "canonicalPath": "/piso-laminado/",
+      "label": "Pisos Laminados"
+    },
+    "/pisos": {
+      "title": "Catálogo de Pisos | Lanyi Pisos",
+      "description": "Encuentra pisos laminados, de madera y bambú. Compara acabados, características y precios referenciales para tu proyecto en Lima.",
+      "label": "Pisos"
+    },
+    "/accesorios": {
+      "title": "Accesorios y zócalos | Lanyi Pisos",
+      "description": "Zócalos y rodones para completar tus pisos. Consulta acabados, medidas y precios por metro lineal.",
+      "label": "Accesorios"
+    },
+    "/nosotros": {
+      "title": "Nosotros | Más de 25 años | Lanyi Pisos",
+      "description": "Conoce Lanyi Pisos: más de 25 años atendiendo al sector construcción, distribuidores y público en general.",
+      "label": "Nosotros"
+    },
+    "/blog": {
+      "title": "Blog | Consejos y novedades | Lanyi Pisos",
+      "description": "Consejos para elegir, instalar y cuidar pisos de madera, bambú y laminados.",
+      "label": "Blog"
+    },
+    "/proyectos": {
+      "title": "Proyectos realizados | Lanyi Pisos",
+      "description": "Descubre proyectos y ambientes con pisos Lanyi. Explora fotografías, materiales y acabados.",
+      "label": "Proyectos"
+    },
+    "/contacto": {
+      "title": "Contacto | Lanyi Pisos",
+      "description": "Visítanos en Av. Tingo María 1259, Breña, Lima. Solicita asesoría y cotización para tu proyecto.",
+      "label": "Contacto"
+    }
+  }
+}

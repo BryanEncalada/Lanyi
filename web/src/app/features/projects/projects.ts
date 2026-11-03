@@ -1,16 +1,29 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { PROJECTS } from '../../shared/data/projects';
+import { ContentService } from '../../shared/services/content.service';
 import { quotationUrl } from '../../shared/data/products';
-import { ReferencePhoto } from '../../shared/components/reference-photo/reference-photo';
+import { ContentPhoto } from '../../shared/components/content-photo/content-photo';
 import { Icon } from '../../shared/components/icon/icon';
-@Component({selector: 'app-projects', imports: [RouterLink, ReferencePhoto, Icon], templateUrl: './projects.html', styleUrl: './projects.scss'})
+@Component({
+  selector: 'app-projects',
+  imports: [RouterLink, ContentPhoto, Icon],
+  templateUrl: './projects.html',
+  styleUrl: './projects.scss',
+})
 export class Projects {
-  readonly projects = PROJECTS;
-  readonly categories = ['Todos', ...new Set(PROJECTS.map(p => p.material))];
+  readonly content = inject(ContentService);
+  readonly projects = this.content.projects;
+  readonly categories = computed(() => [
+    'Todos',
+    ...new Set(
+      this.projects()
+        .map((p) => p.material)
+        .filter(Boolean),
+    ),
+  ]);
   readonly category = signal('Todos');
-  readonly results = computed(() => PROJECTS.filter(p => this.category() === 'Todos' || p.material === this.category()));
-  readonly selected = signal<(typeof PROJECTS)[number] | null>(null);
+  readonly results = computed(() =>
+    this.projects().filter((p) => this.category() === 'Todos' || p.material === this.category()),
+  );
   readonly quote = quotationUrl;
-  open(project: (typeof PROJECTS)[number], dialog: HTMLDialogElement) { this.selected.set(project); dialog.showModal(); }
 }

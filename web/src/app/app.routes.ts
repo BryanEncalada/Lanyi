@@ -2,6 +2,12 @@ import { Routes } from '@angular/router';
 const catalog = () => import('./features/products/pages/products/products').then((m) => m.Products);
 export const routes: Routes = [
   {
+    path: 'piso-laminado',
+    title: 'Pisos Laminados - Lanyi Pisos',
+    data: { category: 'pisos', material: 'Laminado', landingTitle: 'Pisos Laminados' },
+    loadComponent: catalog,
+  },
+  {
     path: '',
     pathMatch: 'full',
     title: 'Lanyi Pisos | Pisos de madera, bambú y laminados',
@@ -28,18 +34,53 @@ export const routes: Routes = [
     path: 'pisos/:id',
     title: 'Detalle del piso | Lanyi Pisos',
     data: { category: 'pisos' },
-    loadComponent: () => import('./features/products/pages/product-detail/product-detail').then(m => m.ProductDetail),
+    loadComponent: () =>
+      import('./features/products/pages/product-detail/product-detail').then(
+        (m) => m.ProductDetail,
+      ),
   },
   {
     path: 'accesorios/:id',
     title: 'Detalle del accesorio | Lanyi Pisos',
     data: { category: 'accesorios' },
-    loadComponent: () => import('./features/products/pages/product-detail/product-detail').then(m => m.ProductDetail),
+    loadComponent: () =>
+      import('./features/products/pages/product-detail/product-detail').then(
+        (m) => m.ProductDetail,
+      ),
   },
-  { path: 'blog/:slug', title: 'Artículo | Lanyi Pisos', loadComponent: () => import('./features/blog/article/article').then(m => m.Article) },
-  { path: 'blog', title: 'Blog | Consejos y novedades | Lanyi Pisos', loadComponent: () => import('./features/blog/blog').then(m => m.Blog) },
-  { path: 'proyectos', title: 'Proyectos realizados | Lanyi Pisos', loadComponent: () => import('./features/projects/projects').then(m => m.Projects) },
+  {
+    path: 'blog/:slug',
+    data: { kind: 'blog' },
+    title: 'Artículo | Lanyi Pisos',
+    loadComponent: () => import('./features/blog/article/article').then((m) => m.Article),
+  },
+  {
+    path: 'blog',
+    title: 'Blog | Consejos y novedades | Lanyi Pisos',
+    loadComponent: () => import('./features/blog/blog').then((m) => m.Blog),
+  },
+  {
+    path: 'proyectos/:slug',
+    title: 'Proyecto | Lanyi Pisos',
+    data: { kind: 'proyectos' },
+    loadComponent: () => import('./features/blog/article/article').then((m) => m.Article),
+  },
+  {
+    path: 'contacto',
+    title: 'Contacto | Lanyi Pisos',
+    loadComponent: () => import('./features/contact/contact').then((m) => m.Contact),
+  },
+  {
+    path: 'proyectos',
+    title: 'Proyectos realizados | Lanyi Pisos',
+    loadComponent: () => import('./features/projects/projects').then((m) => m.Projects),
+  },
   { path: 'zocalos', redirectTo: 'accesorios', pathMatch: 'full' },
   { path: 'productos', redirectTo: 'accesorios', pathMatch: 'full' },
-  { path: '**', redirectTo: '' },
+  {
+    path: '**',
+    title: 'Página no encontrada | Lanyi Pisos',
+    data: { notFound: true },
+    loadComponent: () => import('./features/not-found/not-found').then((m) => m.NotFound),
+  },
 ];

@@ -13,9 +13,11 @@ class ProductResource extends JsonResource
         $url = fn ($path) => $path ? Storage::disk('media')->url($path) : null;
 
         return [
+            'seoTitle' => $this->seo_title, 'seoDescription' => $this->seo_description,
             'id' => $this->slug, 'name' => $this->name, 'sku' => $this->sku, 'category' => $this->kind,
             'categoryId' => $this->category_id, 'subcategory' => $this->category->name,
             'description' => $this->description ?? '', 'material' => $this->material ?? '', 'finish' => $this->finish ?? '',
+            'priceUnit' => $this->kind === 'accesorios' ? 'ml' : 'm2',
             'height' => $this->height, 'spec' => $this->spec, 'price' => $this->price,
             'usage' => $this->usage ?? [], 'colors' => $this->colors ?? [], 'colorFamilies' => $this->color_families ?? [],
             'photo' => $this->legacy_photo ?? [], 'photoSource' => $this->legacy_source ?? 'catalog',

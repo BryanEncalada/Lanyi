@@ -6,10 +6,10 @@ Aplicación Laravel independiente en `admin/`. Angular permanece en `../web/`. E
 
 - PHP local 8.4.27, Laravel 13.39.0, Filament 5.11.0, Livewire 4.4.8. Versiones fijadas en composer.lock.
 - Composer resolvió dependencias con PHP 8.4.0 y `ext-bcmath: false`, sin ignorar requisitos.
-- 16 pruebas PHP / 113 aserciones: migraciones SQLite, importación no destructiva, endpoints, separación de tipos, publicación, categorías padre, permisos, login/logout, CRUD nativo, contraseña con hash, carga/reemplazo/borrado de imágenes, rechazo de formato/tamaño y rutas inválidas.
+- 26 pruebas PHP / 186 aserciones (catálogo y ampliación editorial): migraciones SQLite, importación no destructiva, endpoints, separación de tipos, publicación, categorías padre, permisos, login/logout, CRUD nativo, contraseña con hash, carga/reemplazo/borrado de imágenes, rechazo de formato/tamaño y rutas inválidas.
 - Las mismas pruebas pasaron con funciones BCMath deshabilitadas y el calculador nativo de brick/math seleccionado **solo en el bootstrap de pruebas**. PHP Windows incluye BCMath; esto simula su ausencia y no sustituye la verificación del PHP real del hosting.
-- Angular: compilación de producción y 5 pruebas de transición de catálogo.
-- **No se ha conectado MySQL ni desplegado en cPanel.** No se han ejecutado migraciones remotas. El CRUD se probó contra SQLite local; debe repetirse en MySQL antes de publicar.
+- Angular: compilación de producción, 9 pruebas de catálogo/contenido y 3 pruebas HTTP del puente SEO.
+- El catálogo inicial se conectó a MySQL/MariaDB del hosting y su migración inicial ya se ejecutó en una etapa anterior. Esta ampliación editorial se probó en SQLite aislado; la nueva migración y la actualización del hosting siguen pendientes.
 - Sin usuarios/contraseñas predeterminados. Los seeders importan productos, nunca cuentas.
 - Las fotografías heredadas son los recortes que ya usa Angular, no nuevos archivos comerciales. Se conservan hasta reemplazarlas por imágenes en el administrador.
 
@@ -215,3 +215,52 @@ Comprobar en hosting:
 - Respaldos y acceso del usuario propietario.
 
 Estos pasos remotos quedan pendientes hasta disponer de base de datos y acceso al hosting.
+
+
+cd D:\Proyectos\Lanyi\admin
+& "C:\Users\clip_\.codex\tmp\lanyi-php84\php.exe" artisan serve --host=127.0.0.1 --port=8000
+
+## Actualización editorial y catálogo (noviembre de 2026)
+
+La nueva migración `2026_11_03_013622_create_editorial_tables.php` añade Blog/Proyectos, Testimonios, Consultas y campos SEO de productos. No se ha ejecutado en el hosting durante esta implementación. Se probó con SQLite aislado; no ejecutar `migrate:fresh` sobre la base compartida.
+
+Después de respaldar la base y actualizar el backend, ejecutar **desde el PC**, en admin/ con el .env que apunta a la base correcta:
+
+```powershell
+& "C:\Users\clip_\.codex\tmp\lanyi-php84\php.exe" artisan migrate --force --no-interaction
+& "C:\Users\clip_\.codex\tmp\lanyi-php84\php.exe" artisan db:seed --class=EditorialDraftSeeder --force --no-interaction
+```
+
+El seeder importa las 7 publicaciones y 4 referencias de proyectos como **borradores**, sin sobrescribir contenido ni crear testimonios ficticios. Editar textos y fotos antes de activar Publicado. Los testimonios necesitan Publicado y autorización confirmada para aparecer. La fecha de publicación de Blog/Proyectos permite programar contenido.
+
+El contenido completo admite párrafos y subtítulos con `## Título`; se muestra como texto escapado, no HTML arbitrario. Las galerías admiten hasta 12 JPG/PNG/WebP de 4 MB. Los artículos y proyectos tienen URL propia (`/blog/{slug}`, `/proyectos/{slug}`) en lugar del diálogo anterior.
+
+Las consultas se guardan en **Consultas de contacto**. No se envían correos automáticamente ni requieren SMTP. El formulario valida consentimiento, correo y mensaje e incluye honeypot y límite de 5 solicitudes/minuto por IP. Revisar esta bandeja y marcar las consultas como atendidas.
+
+Nuevos endpoints:
+- GET /api/contenido/blog y /api/contenido/blog/{slug}
+- GET /api/contenido/proyectos y /api/contenido/proyectos/{slug}
+- GET /api/testimonios (solo publicados y autorizados)
+- POST /api/contacto (única escritura pública, validada y limitada)
+- GET /api/sitemap.xml (solo URLs publicadas)
+
+Configurar `FRONTEND_URL=https://test.lanyipisos.com` en el .env del backend para las URLs del sitemap, y `FRONTEND_ORIGINS` con ese origen HTTPS para CORS (ahora admite el POST de contacto). El .env local conserva su conexión anterior; las pruebas no requieren apuntarlo a la base de prueba.
+
+Angular incorpora búsqueda por nombre/SKU sin distinguir tildes, categorías de Home con filtros, colores derivados de las familias reales de los productos y estados distintos para carga, error y ausencia de resultados. Se retiraron las flechas de menú que no tenían submenús.
+
+### Metadatos y publicación
+
+Actualizar la web con TODO el contenido de `web/dist/web/browser` después de `npm run build`, incluyendo .htaccess, robots.txt y **seo.php**. No reutilizar los ZIP anteriores a esta actualización.
+
+El pequeño puente seo.php requiere PHP con cURL en el subdominio de Angular y obtiene exclusivamente datos de la API pública configurada en catalog-config.json; no contiene contraseñas. .htaccess sirve metadatos HTML iniciales para productos, artículos y proyectos (incluida imagen Open Graph), un sitemap dinámico en /sitemap.xml y estado HTTP 404 para enlaces inexistentes. La navegación Angular también actualiza título, descripción, canonical y etiquetas sociales.
+
+No se necesita Node en producción. En desarrollo con ng serve, los metadatos Angular funcionan; los metadatos HTML iniciales/sitemap/estado HTTP necesitan Apache con PHP y mod_rewrite (o un servidor equivalente). La página visual 404 funciona también en Angular. Si el dominio final cambia, actualizar FRONTEND_URL, CORS, catalog-config.json, la imagen social predeterminada de index.html y el Sitemap de robots.txt.
+
+El esquema anterior de publicación se modificó en cPanel por el propietario: si se usa `public_html/admin.lanyipisos.com/public` como document root, utilizar el index.php original de admin/public (rutas relativas) y MEDIA_ROOT apuntando a su public/uploads. No reinstalar el front controller antiguo con /apps/lanyi-admin.
+
+Comprobaciones ejecutadas: 26 pruebas PHP, pruebas de catálogo/búsqueda/colores/categorías/texto editorial, compilación Angular, pruebas HTTP locales de metadatos sin JavaScript/sitemap/404 y revisión visual móvil de galería y formulario. No se publicaron estos cambios ni se ejecutaron las nuevas migraciones en MySQL del hosting.
+
+Para repetir las pruebas del HTML SEO: definir PHP_BINARY con la ruta del PHP portable y ejecutar npm run test:seo desde web/.
+
+### Precio estimado del material
+La calculadora usa el precio real registrado: pisos por m² y accesorios por metro lineal. Incluye 10% adicional de material y redondea el importe a céntimos; instalación y transporte se cotizan aparte. Para accesorios se ingresa el perímetro o largo/ancho de un ambiente rectangular, sin descontar puertas. Sin precio registrado se muestra Precio por confirmar. La modificación reutiliza el campo price y no requiere otra migración. La selección de accesorios ya no ofrece pisos.

@@ -1,26 +1,31 @@
-<section class="section testimonials" id="testimonios" aria-labelledby="testimonials-title">
-  <div class="container">
-    <div class="section-heading">
-      <div>
-        <p class="section-label">Testimonios</p>
-        <h2 id="testimonials-title" class="section-title">Lo que dicen nuestros clientes</h2>
+@if (testimonials().length) {
+  <section class="section testimonials" id="testimonios" aria-labelledby="testimonials-title">
+    <div class="container">
+      <div class="section-heading">
+        <div>
+          <p class="section-label">Testimonios</p>
+          <h2 id="testimonials-title" class="section-title">Lo que dicen nuestros clientes</h2>
+        </div>
+      </div>
+      <div class="testimonials-grid">
+        @for (testimonial of testimonials(); track testimonial.id) {
+          <figure class="testimonial-card">
+            <span class="quote-mark" aria-hidden="true">“</span>
+            <blockquote>{{ testimonial.quote }}</blockquote>
+            <figcaption>
+              @if (testimonial.imageUrl) {
+                <div class="avatar">
+                  <app-content-photo [src]="testimonial.imageUrl" [alt]="testimonial.name" />
+                </div>
+              }
+              <div>
+                <span class="customer-name">{{ testimonial.name }}</span
+                ><span class="customer-location">{{ testimonial.location }}</span>
+              </div>
+            </figcaption>
+          </figure>
+        }
       </div>
     </div>
-    <div class="testimonials-grid">
-      @for (testimonial of testimonials; track testimonial.name; let i = $index) {
-        <figure class="testimonial-card">
-          <span class="quote-mark" aria-hidden="true">“</span>
-          <blockquote>{{ testimonial.quote }}</blockquote>
-          <figcaption>
-            <div class="avatar"><app-reference-photo [rect]="avatars[i]" alt="" /></div>
-            <div>
-              <span class="customer-name">{{ testimonial.name }}</span
-              ><span class="customer-location">{{ testimonial.location }}</span>
-            </div>
-          </figcaption>
-        </figure>
-      }
-    </div>
-    <p class="sample-note">Testimonios ilustrativos de la referencia visual.</p>
-  </div>
-</section>
+  </section>
+}

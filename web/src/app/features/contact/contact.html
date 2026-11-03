@@ -1,0 +1,102 @@
+<section class="section contact-page container">
+  <p class="section-label">Conversemos sobre tu proyecto</p>
+  <h1>Estamos para ayudarte</h1>
+  <p class="lead">
+    Cuéntanos qué espacio quieres transformar. Te orientamos en materiales, acabados e instalación.
+  </p>
+  <div class="contact-layout">
+    <aside class="contact-info">
+      <h2>Visítanos o escríbenos</h2>
+      <p><strong>Dirección</strong><br />Av. Tingo María 1259, Breña, Lima</p>
+      <p>
+        <strong>Horario</strong><br />Lun.–Vie.: 9:00 a. m.–6:00 p. m.<br />Sáb.: 9:00 a. m.–1:00 p.
+        m.
+      </p>
+      <p>
+        <a href="tel:+5114333991">(01) 433-3991</a><br /><a href="mailto:ventas@lanyipisos.com"
+          >ventas&#64;lanyipisos.com</a
+        >
+      </p>
+      <a
+        class="btn btn-whatsapp"
+        href="https://wa.me/51971924719"
+        target="_blank"
+        rel="noopener noreferrer"
+        ><app-icon name="whatsapp" /> Cotiza por WhatsApp</a
+      ><a
+        class="map-link"
+        href="https://www.google.com/maps/search/?api=1&amp;query=Av.+Tingo+Maria+1259+Bre%C3%B1a+Lima"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Ver ubicación en Google Maps ↗</a
+      ><iframe
+        title="Ubicación de Lanyi Pisos en Breña, Lima"
+        src="https://maps.google.com/maps?q=Av.%20Tingo%20Maria%201259%20Bre%C3%B1a%20Lima&amp;output=embed"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </aside>
+    <div class="contact-form">
+      <h2>Envíanos tu consulta</h2>
+      <p class="success" role="status" [hidden]="!sent()">
+        Recibimos tu consulta. Nuestro equipo se pondrá en contacto contigo.
+      </p>
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <label
+          >Nombre<input formControlName="name" autocomplete="name" maxlength="150" required
+        /></label>
+        @if (form.controls.name.touched && form.controls.name.invalid) {
+          <small>Ingresa tu nombre.</small>
+        }
+        <label
+          >Correo electrónico<input
+            type="email"
+            formControlName="email"
+            autocomplete="email"
+            maxlength="254"
+            required
+        /></label>
+        @if (form.controls.email.touched && form.controls.email.invalid) {
+          <small>Ingresa un correo válido.</small>
+        }
+        <label
+          >Teléfono (opcional)<input
+            type="tel"
+            formControlName="phone"
+            autocomplete="tel"
+            maxlength="30" /></label
+        ><label
+          >Cuéntanos sobre tu proyecto<textarea
+            formControlName="message"
+            rows="6"
+            minlength="10"
+            maxlength="4000"
+            required
+          ></textarea>
+        </label>
+        @if (form.controls.message.touched && form.controls.message.invalid) {
+          <small>Escribe un mensaje de al menos 10 caracteres.</small>
+        }
+        <div class="honeypot" aria-hidden="true">
+          <label
+            >Sitio web<input formControlName="website" tabindex="-1" autocomplete="off"
+          /></label>
+        </div>
+        <label class="consent"
+          ><input type="checkbox" formControlName="consent" /> Autorizo el uso de estos datos para
+          atender mi consulta.</label
+        >
+        @if (form.controls.consent.touched && form.controls.consent.invalid) {
+          <small>Necesitamos tu autorización para atender esta consulta.</small>
+        }
+        @if (error()) {
+          <p class="error" role="alert">{{ error() }}</p>
+        }
+        <button class="btn btn-primary" type="submit" [disabled]="sending()">
+          {{ sending() ? 'Enviando…' : 'Enviar consulta' }}
+        </button>
+        <p class="form-note">Tu consulta llegará a nuestro equipo de atención.</p>
+      </form>
+    </div>
+  </div>
+</section>

@@ -1,6 +1,12 @@
 import { Component, computed, effect, inject, signal } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
+import {
+  normalizeText,
+  colorOptions,
+  matchesProductSearch,
+  categoryDescendants,
+} from '../../../../shared/data/catalog-utils';
 import { CatalogService } from '../../../../shared/services/catalog.service';
 
 import { ProductCard } from '../../../../shared/components/product-card/product-card';
@@ -19,7 +25,9 @@ export class Products {
     initialValue: this.route.snapshot.queryParamMap,
   });
   readonly isFloors = computed(() => this.data()['category'] === 'pisos');
-  readonly categoryName = computed(() => (this.isFloors() ? 'Pisos' : 'Accesorios'));
+  readonly categoryName = computed(
+    () => this.data()['landingTitle'] ?? (this.isFloors() ? 'Pisos' : 'Accesorios'),
+  );
   readonly catalogPath = computed(() => (this.isFloors() ? '/pisos' : '/accesorios'));
   readonly description = computed(() =>
     this.isFloors()
@@ -32,6 +40,10 @@ export class Products {
   );
   readonly filters = signal<Record<string, string[]>>({});
   readonly sort = signal('popular');
+  readonly search = signal('');
+  readonly hasError = computed(
+    () => this.catalog.source()[this.isFloors() ? 'pisos' : 'accesorios'] === 'fallback',
+  );
   readonly mobileFilters = signal(false);
   readonly groups = computed(() => {
     const items = this.catalogProducts();
@@ -66,36 +78,54 @@ export class Products {
       },
     ];
   });
-  readonly colorOptions = [
-    { name: 'Blanco', value: '#fafafa' },
-    { name: 'Arena', value: '#d5b287' },
-    { name: 'Roble', value: '#c6935a' },
-    { name: 'Canela', value: '#af6f32' },
-    { name: 'Nogal', value: '#70401e' },
-    { name: 'Gris', value: '#a8a7a3' },
-  ];
-  readonly availableColors = computed(() =>
-    this.colorOptions.filter((color) =>
-      this.catalogProducts().some((p) => p.colorFamilies.includes(color.name)),
+  readonly availableColors = computed(() => colorOptions(this.catalogProducts()));
+  readonly preset = computed(() => {
+    const type = this.data()['material'] ?? this.params().get('tipo');
+    return type || null;
+  });
+  readonly categorySlug = computed(() => this.params().get('categoria'));
+  readonly categoryIds = computed(() =>
+    categoryDescendants(
+      this.categorySlug() ?? '',
+      this.isFloors() ? 'pisos' : 'accesorios',
+      this.catalog.categories(),
     ),
   );
-  readonly preset = computed(() => {
-    const type = this.params().get('tipo');
-    return type && this.catalogProducts().some((p) => p.material === type) ? type : null;
-  });
+  readonly categoryLabel = computed(
+    () =>
+      this.catalog
+        .categories()
+        .find(
+          (c) =>
+            c.slug === this.categorySlug() && c.kind === (this.isFloors() ? 'pisos' : 'accesorios'),
+        )?.name ?? this.categorySlug(),
+  );
   readonly activeCount = computed(
-    () => Object.values(this.filters()).reduce((n, v) => n + v.length, 0) + (this.preset() ? 1 : 0),
+    () =>
+      Object.values(this.filters()).reduce((n, v) => n + v.length, 0) +
+      (this.preset() ? 1 : 0) +
+      (this.categorySlug() ? 1 : 0),
   );
   readonly results = computed(() => {
     const filters = this.filters();
     let items = this.catalogProducts().filter((p) => {
-      if (this.preset() && p.material !== this.preset()) return false;
+      if (
+        this.categorySlug() &&
+        (p.categoryId === undefined || !this.categoryIds().has(p.categoryId))
+      )
+        return false;
+      if (this.search() && !matchesProductSearch(p, this.search())) return false;
+      if (this.preset() && normalizeText(p.material) !== normalizeText(this.preset()!))
+        return false;
       return Object.entries(filters).every(([key, values]) => {
         if (!values.length) return true;
         if (key === 'subcategory') return values.includes(p.subcategory ?? '');
         if (key === 'usage') return values.some((v) => p.usage.includes(v));
         if (key === 'height') return values.includes(String(p.height));
-        if (key === 'color') return values.some((v) => p.colorFamilies.includes(v));
+        if (key === 'color')
+          return values.some((v) =>
+            p.colorFamilies.some((family) => normalizeText(family) === normalizeText(v)),
+          );
         return values.includes(key === 'material' ? p.material : p.finish);
       });
     });
@@ -112,6 +142,7 @@ export class Products {
       this.data();
       this.params();
       this.filters.set({});
+      this.search.set(this.params().get('buscar') ?? '');
       this.sort.set('popular');
       this.mobileFilters.set(false);
     });
@@ -128,7 +159,11 @@ export class Products {
       };
     });
   }
+  retry() {
+    window.location.reload();
+  }
   clear() {
+    this.search.set('');
     this.filters.set({});
   }
 }
